@@ -1,0 +1,112 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{java,xml,properties,yml,yaml,md}]
+indent_style = space
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false
+# KANTBOOT 开发规范（贡献指南）
+
+本文件为 KANTBOOT 框架的开发与贡献规范，目的是统一代码风格、分支/PR 流程、构建与发布约定，降低维护成本并提高协作效率。
+
+目录概览
+- 框架总览
+- 基本约定（语言、版本、包名）
+- 构建与版本管理
+- 模块划分与依赖规则
+- 代码风格与格式化
+- 分支、提交、PR 与评审流程
+- 测试、CI、质量门禁
+- 运行与配置约定
+- 发布与版本策略
+- 常见约定与最佳实践
+
+一、框架总览（基于当前仓库）
+- 构建：Maven 多模块构建，顶层 `pom.xml` 是父 POM，使用 Spring Boot Starter Parent（3.4.3）。
+- Java：默认目标 Java 21（`<java.version>21</java.version>`）。
+- 重要模块（部分）：`dependencies`、`util`、`system`、`global`、`user`、`functional`、`engine`、`gateway`、`thirdparty`、`official-plugin`、`starter-parent` 等。
+- 版本管理：使用 `${kantboot.version}` 与 `${revision}`（顶层 POM 中 `revision` = `${kantboot.version}`）。构建/发布需传入/使用该 `revision` 属性以保证一致性。
+- 额外：使用 `flatten-maven-plugin` 来生成扁平化 POM，仓库镜像使用阿里云 Maven 仓库。
+
+二、基本约定
+- 包名：统一 `com.kantboot.<模块名>...` 形式，模块代码放在对应子模块下。
+- Java 版本：所有模块目标为 Java 21。不可使用尚未稳定的语言特性；使用记录（record）、sealed 等特性时注明兼容性考虑。
+- 依赖：第三方库通过顶层/`starter-parent` 的 `dependencyManagement` 管理版本，不在子模块中硬编码版本号（除非特殊原因并有注释）。
+
+三、构建与版本管理
+- 本地构建命令（推荐并行）：
+  - mvn -T1C clean install -Drevision=0.0.1
+- 版本语义：采用语义化版本（MAJOR.MINOR.PATCH）。breaking change -> MAJOR++，新增特性-> MINOR++，修复-> PATCH++。
+- Snapshot 与 Release：开发周期使用 SNAPSHOT；对外发布使用 release。发布前确保所有模块无 SNAPSHOT 依赖（或使用内部仓库托管快照）。
+- 扁平化 POM：CI 上构建时会生成 flattened POM 文件以便发布到 Maven 仓库。
+
+四、模块划分与依赖规则
+- 单一职责：每个模块只负责有限的职责（如 `util-*` 为工具类/公共库，`system-*` 为系统级服务，`functional-*` 为功能扩展、`thirdparty-*` 为第三方适配）。
+- 依赖方向：高层模块可依赖低层模块（例如业务模块依赖 util），但避免循环依赖。
+- API vs impl：公共 API 放在 `*-api` 或 `*-spi`（若需要），实现放在 `*-impl` 或普通模块；便于替换与测试。
+
+五、代码风格与格式化
+- 代码格式：使用统一格式化工具（推荐 google-java-format 或 spotless plugin），并在 CI 中强制执行。
+- .editorconfig：仓库根包含 `.editorconfig` 用于统一缩进/编码/行尾等。
+- 注释：方法提供 javadoc（公共 API 必须），复杂逻辑写清楚意图而非复述实现。
+- 日志：使用统一日志封装（`util-log`），不要在 catch 里吞掉异常；记录必要上下文。
+
+六、分支、提交、PR 与评审流程
+- 分支策略（推荐 Trunk-based + feature 分支）：
+  - 主分支：`main`（或 `master`）保持可发布状态。
+  - 功能分支：`feature/<ticket>-short-desc`。
+  - 修复分支：`bugfix/<ticket>-short-desc`。
+  - 紧急修复：`hotfix/<semver>`。
+- 提交规范：采用 Conventional Commits（例如 `feat:`, `fix:`, `chore:`）。提交描述要能追溯 issue/需求号。
+- PR 要求：
+  - 关联合适的 Issue/任务编号；
+  - 附上变更说明、对兼容性的影响、数据库迁移脚本（若有）；
+  - 至少 1-2 名代码审阅者（核心模块 2 人以上）；
+  - CI Green（所有检查通过）才可合并；
+  - 使用 Squash 或 Merge 时保留语义化提交历史（团队约定）。
+
+七、测试、CI、质量门禁
+- 单元测试：JUnit 5，推荐 Mockito 或 MockK（若使用 Kotlin）。测试覆盖关键业务逻辑与边界条件。
+- 集成测试：使用 SpringBootTest 和 Testcontainers（必要时），将 DB/消息中间件隔离到容器中以保证可重复性。
+- 质量门禁：CI 阶段至少包含：格式化检查、静态分析（SpotBugs/PMD/Checkstyle）、单元测试、集成测试（如适用）、依赖扫描（OWASP）。
+- 覆盖率：为核心模块设定最低阈值（可配置，例如 60%-80%），但覆盖率不是唯一质量指标。
+
+八、运行与配置约定
+- 配置文件：使用 Spring Boot 的 `application-{profile}.yml`，不要在源码中提交敏感信息。
+- 环境区分：`dev`、`test`、`prod` 三套配置，敏感配置通过环境变量或配置中心注入。
+- 日志级别：生产系统默认 INFO，错误级别为 ERROR，避免 DEBUG 在 prod 中开启。
+
+九、发布与版本策略
+- 发布流程：
+  - 在 `main` 上创建 release 分支（或用 tag）并更新 `kantboot.version`/`revision`；
+  - CI 构建、运行集成测试；
+  - 上传构件到 Maven 仓库（私有或中央）并打 tag。
+- 发布说明：每次发布需在 CHANGELOG.md 或 Release Notes 中记录变更点与迁移指南��
+
+十、常见约定与最佳实践清单
+- 避免大块合并（monolithic PR）；
+- 编写防御性代码（参数校验）；
+- 参数对象（DTO/VO）使用不可变类型优先；
+- 对外 API 使用明确版本（/v1/...）；
+- 数据库迁移使用 Flyway 或 Liquibase 并把迁移脚本放入模块资源目录；
+- 依赖升级：使用 Dependabot/Renovate 自动提交 PR，由人工评审合并。
+
+附：常用构建命令
+- 本地编译与测试：
+  mvn -T1C clean install -Drevision=0.0.1
+- 跳过测试：
+  mvn -T1C clean package -Drevision=0.0.1 -DskipTests=true
+
+联系方式与问题反馈
+- 如有规范冲突或改进建议，请在 issue 中提出，带上理由与影响范围，维护者评审后合并。
+
+----
+
+该文件是基线建议，可根据团队习惯调整，如需我把本规范进一步拆成 PR 模板、CI 配置、Checkstyle/Spotless 配置文件，我可以继续创建这些文件并在 CI 中演示运行。

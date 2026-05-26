@@ -1,0 +1,71 @@
+host: 127.0.0.1
+#host: kantboot.com
+
+server:
+  port: 8080
+
+
+spring:
+  mvc:
+    async:
+      request-timeout: 3600000
+  servlet:
+    # 上传文件大小限制
+    load-on-startup: 1
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  main:
+    allow-bean-definition-overriding: true
+  cache:
+    type: redis
+  data:
+    redis:
+      host: ${host}
+      port: 6379
+      password: woshifangziyuan1
+      timeout: 30s
+      database: 2
+      lettuce:
+        pool:
+          min-idle: 0
+          max-idle: 8
+          max-active: 8
+          max-wait: -1ms
+  application:
+    name: kantboot
+  datasource:
+    hikari:
+      maximum-pool-size: 50
+      minimum-idle: 10
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      validation-timeout: 5000
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${host}:5432/kantboot
+    username: postgres
+    password: woshifangziyuan1
+  jpa:
+    properties:
+      hibernate:
+        physical_naming_strategy: com.kantboot.util.jpa.strategy.NoForeignKeyNamingStrategy
+        jdbc:
+          batch_size: 500
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    show-sql: false
+  aop:
+    auto: false
+
+kantboot:
+  init: true
+  gateway-server-host: 127.0.0.1:8000
+  gateway-client-forward-path: /
+  server-ports:
+    - 10001
+    - 10002

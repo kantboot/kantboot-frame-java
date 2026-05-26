@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.kantboot</groupId>
+        <artifactId>dependencies</artifactId>
+        <version>${revision}</version>
+        <relativePath>../dependencies/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>util</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>util-http</module>
+        <module>util-crypto</module>
+        <module>util-cache</module>
+        <module>util-rest</module>
+        <module>util-auth</module>
+        <module>util-base-control</module>
+        <module>util-file</module>
+        <module>util-event</module>
+        <module>util-setting</module>
+        <module>util-jpa</module>
+        <module>util-data-change</module>
+        <module>util-qrcode</module>
+        <module>util-i18n</module>
+        <module>util-all</module>
+        <module>util-scan</module>
+        <module>util-timer</module>
+        <module>util-exception</module>
+        <module>util-init</module>
+        <module>util-resolver</module>
+        <module>util-admin</module>
+        <module>util-email</module>
+        <module>util-location</module>
+        <module>util-log</module>
+    </modules>
+
+</project>

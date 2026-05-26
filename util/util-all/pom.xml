@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.kantboot</groupId>
+        <artifactId>util</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>util-all</artifactId>
+    <description>聚合多个实用工具模块，方便在项目中统一引入</description>
+
+    <dependencies>
+        <!-- 缓存工具模块（util-cache）：提供缓存功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-cache</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <!-- 加密工具模块（util-crypto）：提供加密解密功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-crypto</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <!-- HTTP工具模块（util-http）：提供 JPA 相关功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-http</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-email</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <!-- REST 工具模块，提供 REST 相关功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-rest</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <!-- 异常处理工具模块（util-exception）：提供异常处理相关功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-exception</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <!-- 权限工具模块（util-auth）：提供权限相关功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-auth</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-admin</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <!-- 基础控制器模块（util-base-control）：提供基础的控制器功能和通用的请求处理逻辑 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-base-control</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <!-- 文件工具模块（util-file）：提供文件处理相关功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-file</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <!-- 事件工具模块（util-event）：提供事件处理相关功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-event</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <!-- 数据变化工具模块（util-data-change）：提供数据变化记录功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-data-change</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <!-- 设置工具模块（util-setting）：提供设置相关功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-setting</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <!-- JPA 工具模块（util-jpa）：提供 JPA 相关功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-jpa</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <!-- 二维码工具模块（util-qrcode）：提供二维码生成和解析功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-qrcode</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <!-- 国际化工具模块（util-i18n）：提供多语言支持和国际化功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-i18n</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <!-- 扫描工具模块（util-scan）：提供工具类扫描和注册功能 -->
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-scan</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-timer</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-init</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-resolver</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-location</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>util-log</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
+
+
+</project>

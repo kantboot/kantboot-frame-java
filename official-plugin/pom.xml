@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.kantboot</groupId>
+        <artifactId>parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>official-plugin</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>official-plugin-tool-area</module>
+        <module>official-plugin-tool-ip</module>
+        <module>official-plugin-user-location</module>
+        <module>official-plugin-all</module>
+        <module>official-plugin-functional-translate</module>
+    </modules>
+
+</project>

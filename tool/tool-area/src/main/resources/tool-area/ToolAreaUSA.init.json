@@ -1,0 +1,402 @@
+[
+  {
+    "code": "USA.AL",
+    "minCode":"AL",
+    "level": 1,
+    "name": "Alabama",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.AK",
+    "minCode":"AK",
+    "level": 1,
+    "name": "Alaska",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.AZ",
+    "minCode":"AZ",
+    "level": 1,
+    "name": "Arizona",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.AR",
+    "minCode":"AR",
+    "level": 1,
+    "name": "Arkansas",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.CA",
+    "minCode":"CA",
+    "level": 1,
+    "name": "California",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.CO",
+    "minCode":"CO",
+    "level": 1,
+    "name": "Colorado",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.CT",
+    "minCode":"CT",
+    "level": 1,
+    "name": "Connecticut",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.DE",
+    "minCode":"DE",
+    "level": 1,
+    "name": "Delaware",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.FL",
+    "minCode":"FL",
+    "level": 1,
+    "name": "Florida",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.GA",
+    "minCode":"GA",
+    "level": 1,
+    "name": "Georgia",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.HI",
+    "minCode":"HI",
+    "level": 1,
+    "name": "Hawaii",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.ID",
+    "minCode":"ID",
+    "level": 1,
+    "name": "Idaho",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.IL",
+    "minCode":"IL",
+    "level": 1,
+    "name": "Illinois",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.IN",
+    "minCode":"IN",
+    "level": 1,
+    "name": "Indiana",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.IA",
+    "minCode":"IA",
+    "level": 1,
+    "name": "Iowa",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.KS",
+    "minCode":"KS",
+    "level": 1,
+    "name": "Kansas",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.KY",
+    "minCode":"KY",
+    "level": 1,
+    "name": "Kentucky",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.LA",
+    "minCode":"LA",
+    "level": 1,
+    "name": "Louisiana",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.ME",
+    "minCode":"ME",
+    "level": 1,
+    "name": "Maine",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.MD",
+    "minCode":"MD",
+    "level": 1,
+    "name": "Maryland",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.MA",
+    "minCode":"MA",
+    "level": 1,
+    "name": "Massachusetts",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.MI",
+    "minCode":"MI",
+    "level": 1,
+    "name": "Michigan",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.MN",
+    "minCode":"MN",
+    "level": 1,
+    "name": "Minnesota",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.MS",
+    "minCode":"MS",
+    "level": 1,
+    "name": "Mississippi",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.MO",
+    "minCode":"MO",
+    "level": 1,
+    "name": "Missouri",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.MT",
+    "minCode":"MT",
+    "level": 1,
+    "name": "Montana",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.NE",
+    "minCode":"NE",
+    "level": 1,
+    "name": "Nebraska",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.NV",
+    "minCode":"NV",
+    "level": 1,
+    "name": "Nevada",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.NH",
+    "minCode":"NH",
+    "level": 1,
+    "name": "New Hampshire",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.NJ",
+    "minCode":"NJ",
+    "level": 1,
+    "name": "New Jersey",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.NM",
+    "minCode":"NM",
+    "level": 1,
+    "name": "New Mexico",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.NY",
+    "minCode":"NY",
+    "level": 1,
+    "name": "New York",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.NC",
+    "minCode":"NC",
+    "level": 1,
+    "name": "North Carolina",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.ND",
+    "minCode":"ND",
+    "level": 1,
+    "name": "North Dakota",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.OH",
+    "minCode":"OH",
+    "level": 1,
+    "name": "Ohio",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.OK",
+    "minCode":"OK",
+    "level": 1,
+    "name": "Oklahoma",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.OR",
+    "minCode":"OR",
+    "level": 1,
+    "name": "Oregon",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.PA",
+    "minCode":"PA",
+    "level": 1,
+    "name": "Pennsylvania",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.RI",
+    "minCode":"RI",
+    "level": 1,
+    "name": "Rhode Island",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.SC",
+    "minCode":"SC",
+    "level": 1,
+    "name": "South Carolina",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.SD",
+    "minCode":"SD",
+    "level": 1,
+    "name": "South Dakota",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.TN",
+    "minCode":"TN",
+    "level": 1,
+    "name": "Tennessee",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.TX",
+    "minCode":"TX",
+    "level": 1,
+    "name": "Texas",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.UT",
+    "minCode":"UT",
+    "level": 1,
+    "name": "Utah",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.VT",
+    "minCode":"VT",
+    "level": 1,
+    "name": "Vermont",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.VA",
+    "minCode":"VA",
+    "level": 1,
+    "name": "Virginia",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.WA",
+    "minCode":"WA",
+    "level": 1,
+    "name": "Washington",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.WV",
+    "minCode":"WV",
+    "level": 1,
+    "name": "West Virginia",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.WI",
+    "minCode":"WI",
+    "level": 1,
+    "name": "Wisconsin",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  },
+  {
+    "code": "USA.WY",
+    "minCode":"WY",
+    "level": 1,
+    "name": "Wyoming",
+    "parentCode": "USA",
+    "sourceLanguageCode": "en"
+  }
+]

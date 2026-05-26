@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FindBugsFilter PUBLIC "-//FindBugs//DTD Filter//EN" "https://spotbugs.github.io/filter.dtd">
+<FindBugsFilter>
+  <!-- 忽略 Lombok 生成的代码与元注解类（如需） -->
+  <Match>
+    <Class name="~.*\$\$.*"/>
+  </Match>
+</FindBugsFilter>
+

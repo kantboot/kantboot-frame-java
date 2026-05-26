@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.kantboot</groupId>
+        <artifactId>dependencies</artifactId>
+        <version>${revision}</version>
+        <relativePath>../dependencies/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>thirdparty</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>thirdparty-juhe</module>
+        <module>thirdparty-alicloud-market</module>
+        <module>thirdparty-baidu-translate</module>
+        <module>thirdparty-wechat</module>
+        <module>thirdparty-github</module>
+        <module>thirdparty-google</module>
+        <module>thirdparty-discord</module>
+        <module>thirdparty-wechat-miniprogram</module>
+        <module>thirdparty-all</module>
+        <module>thirdparty-wechat-pay</module>
+    </modules>
+
+</project>

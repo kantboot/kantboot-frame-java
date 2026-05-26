@@ -1,0 +1,6346 @@
+ 
+果丁智能锁API接口文档  
+ 
+ 
+目录 
+1. 关于 iSurpass 开放服务 .............................................................................................................. 6 
+1.1. iSurpass 开放服务基本架构 .................................................................................. 6 
+1.2. iSurpass 开放服务的安装包 .................................................................................. 7 
+2. HTTP 基础服务 ......................................................................................................................... 7 
+2.1. 认证 .................................................................................................................... 7 
+2.1.1. JWT Token 定义 ............................................................................................. 7 
+2.1.2. JWT token 使用方式 .......................................................................................... 8 
+2.2. 网关 .................................................................................................................... 8 
+2.2.1. 获取节点设备列表 ............................................................................................ 8 
+2.2.2. 获取逻辑节点设备列表 .................................................................................. 10 
+2.2.3. (z-wave 网关/无源网关)删除死节点 .................................................................. 12 
+2.2.4. 获取当前连接状态 .......................................................................................... 13 
+2.2.5. 获取 WIFI 或蜂窝移动网关的信号强度 ............................................................... 15 
+2.2.6. 删除异步请求 .................................................................................................. 16 
+2.2.7. 清除异步请求 .................................................................................................. 17 
+2.2.8. (Z-wave7 网关)注册 DSK ........................................ 18 
+2.2.9. (Z-wave7 网关)注销 DSK ........................................ 19 
+2.2.10. (Z-wave7 网关) 获取 RF REGION ................................. 20 
+2.2.11. (Z-wave7 网关) 设置 RF REGION ................................. 21 
+2.3. 锁 ...................................................................................................................... 22 
+2.3.1. 删除锁用户 ...................................................................................................... 22 
+2.3.2. 添加/修改锁用户 ............................................................................................ 23 
+2.3.3. 修改锁用户的有效日期时间 .......................................................................... 25 
+2.3.4. 修改锁用户的有效星期 .................................................................................. 26 
+2.3.5. 获取锁的当前状态 .......................................................................................... 28 
+ 
+2.3.6. 远程开锁 .......................................................................................................... 29 
+2.3.7. 远程落锁 .......................................................................................................... 30 
+2.3.8. 将服务器的系统时间同步到锁 ...................................................................... 31 
+2.3.9. 获取锁的当前日期时间 .................................................................................. 32 
+2.3.10. 获取锁的版本信息 .......................................................................................... 33 
+2.3.11. 清除锁的数据 .................................................................................................. 35 
+2.3.12. 获取锁用户的有效日期时间 .......................................................................... 36 
+2.3.13. 获取锁用户的有效星期 .................................................................................. 37 
+2.3.14. 添加卡 .............................................................................................................. 39 
+2.3.15. 添加指纹 .......................................................................................................... 40 
+2.3.16. 设置时区 .......................................................................................................... 42 
+2.3.17. 停用锁用户 ...................................................................................................... 43 
+2.3.18. 恢复锁用户 ...................................................................................................... 44 
+3. WebSocket 服务 ..................................................................................................................... 44 
+3.1. 认证 .................................................................................................................. 44 
+3.2. 请求 z-wave 网关设备进入/退 添加&删除设备状态 ............................... 45 
+3.3. 接收设备的 report ................................................ 46 
+3.3.1. 请求接收指定 topic 的 report ...................................... 46 
+3.3.1.1. 请求接收全部设备 report ..................................... 46 
+3.3.1.2. 请求接收指定网关设备的 report ............................... 46 
+3.3.1.3. 请求接收指定网关下的指定节点设备的 report ................... 46 
+3.3.2. 请求停止接收指定 topic 的 report .................................. 47 
+3.3.2.1. 请求停止接收全部设备 report ................................. 47 
+3.3.2.2. 请求停止接收指定网关下的 report ............................. 47 
+3.3.2.3. 请求停止接收指定网关下的指定节点设备的 report ............... 47 
+3.4. 设备的 report ................................................ 48 
+3.4.1. 网关设备的 report ................................................ 48 
+3.4.1.1. 增加节点设备 report ......................................... 48 
+3.4.1.2. 删除节点设备 report ......................................... 49 
+3.4.1.3. 网关设备上线 report ......................................... 49 
+3.4.1.4. 网关设备离线 report ......................................... 50 
+3.4.1.5. (wifi/蜂窝移动)信号强度 report ................................. 50 
+3.4.1.6. 节点故障 report ............................................. 50 
+3.4.1.7. 网关设备复位 report ......................................... 51 
+3.4.1.8. 网关扩展属性变更 report ..................................... 51 
+3.4.1.9. 节点扩展属性变更 report ..................................... 51 
+ 
+3.4.1.10. 逻辑节点扩展属性变更 report ............................. 52 
+3.4.1.11. 增加无源设备 report ..................................... 52 
+3.4.2. 锁的 report .................................................. 53 
+3.4.2.1. 锁最新状态 report ........................................... 53 
+3.4.2.2. 锁无线信号 report ........................................... 53 
+3.4.2.3. 锁电池电量 report ........................................... 54 
+3.4.2.4. 开门通知 report ............................................. 55 
+3.4.2.5. 关门通知 report ............................................. 55 
+3.4.2.6. 锁电池低电量告警 report ..................................... 56 
+3.4.2.7. 取消反锁 report ............................................. 56 
+3.4.2.8. 锁设备告警 report ........................................... 57 
+3.4.2.9. 反锁 report ................................................. 57 
+3.4.2.10. 添加/修改锁用户 report .................................. 58 
+3.4.2.11. 修改锁用户有效日期时间 report ........................... 59 
+3.4.2.12. 修改锁用户有效星期时间 report ........................... 59 
+3.4.2.13. 批量修改锁用户有效日期时间 report ....................... 60 
+3.4.2.14. 删除锁用户 report ....................................... 60 
+3.4.2.15. 清除锁用户 report ....................................... 61 
+3.4.2.16. 设置锁用户名称 report ................................... 61 
+3.4.2.17. 开锁失败 report ......................................... 62 
+3.4.2.18. NB 锁人工唤醒 report ................................. 63 
+3.4.2.19. 获取蓝牙钥匙 report ..................................... 63 
+3.4.2.20. 更换蓝牙密钥 report ..................................... 64 
+3.4.2.21. 复位蓝牙密钥 report ..................................... 64 
+3.4.2.22. 异步批量添加/修改锁用户 report .......................... 64 
+3.4.2.23. 异步批量删除锁用户 report ............................... 65 
+3.4.2.24. 锁的附加门磁的最新状态 report ........................... 66 
+3.4.2.25. 是否允许远程开锁最新状态 report ......................... 66 
+3.4.2.26. 门铃最新状态 report ..................................... 67 
+3.4.2.27. (多个)属性状态 report ...................................... 67 
+3.4.2.28. 停用锁用户 report ....................................... 68 
+3.4.2.29. 恢复锁用户 report ....................................... 69 
+3.4.2.30. 身份证认证结果 report ................................... 69 
+3.4.2.31. 上报密码/卡号 report ................................ 70 
+3.4.2.32. 上报卡号 report ..................................... 70 
+3.5. 接收异步请求的操作结果 .............................................................................. 71 
+3.6. 请求指纹采集器采集指纹 .............................................................................. 72 
+4. HTTP 高级应用服务 ..................................................................................................................... 73 
+4.1. 扩展属性服务 .................................................................................................. 73 
+4.1.1. 设置网关扩展属性 .......................................................................................... 73 
+4.1.2. 获取网关属性 .................................................................................................. 74 
+ 
+4.1.3. 按扩展属性查询网关 ...................................................................................... 76 
+4.1.4. 设置节点设备扩展属性 .................................................................................. 78 
+4.1.5. 获取节点设备属性 .......................................................................................... 80 
+4.1.6. 按扩展属性查询节点设备 .............................................................................. 82 
+4.1.7. 设置逻辑节点扩展属性 .................................................................................. 85 
+4.1.8. 获取逻辑节点属性 .......................................................................................... 86 
+4.1.9. 按扩展属性查询逻辑节点 .............................................................................. 88 
+4.2. 锁高级服务 ...................................................................................................... 91 
+4.2.1. 获取锁的用户列表 .......................................................................................... 91 
+4.2.2. 更改指定类型锁用户的有效日期时间 .......................................................... 93 
+4.2.3. 添加/修改密码/临时密码用户 ...................................................................... 95 
+4.2.4. 设置锁用户名称 .............................................................................................. 97 
+4.2.5. 添加卡 .............................................................................................................. 98 
+4.2.6. 添加指纹 .......................................................................................................... 99 
+4.2.7. 添加/修改锁用户 .......................................................................................... 101 
+4.2.8. 查询锁异步请求历史 .................................................................................... 103 
+4.2.9. 添加/修改蓝牙/二维码用户 ........................................................................ 107 
+4.2.10. 修改蓝牙/二维码用户的有效日期时间 ...................................................... 109 
+4.2.11. 修改蓝牙/二维码用户的有效星期 .............................................................. 110 
+4.2.12. 删除蓝牙/二维码用户 .................................................................................. 111 
+4.2.13. 获取蓝牙/二维码用户钥匙 .......................................................................... 112 
+4.2.14. 更换蓝牙密钥 ................................................................................................ 114 
+4.2.15. 复位蓝牙密钥 ................................................................................................ 115 
+4.2.16. 按 Owner 获取锁用户列表 ............................................................................ 117 
+4.2.17. 异步批量添加/修改锁用户 .......................................................................... 119 
+4.2.18. 异步批量删除锁用户 .................................................................................... 122 
+4.2.19. 蓝牙加卡 ........................................................................................................ 123 
+4.2.20. 获取酒店锁开锁密码 .................................................................................... 123 
+4.2.21. 蓝牙加密码用户 ............................................................................................ 125 
+4.2.22. 蓝牙将服务器的系统时间同步到锁 ............................................................ 126 
+4.2.23. 添加蓝牙钥匙扣用户 .................................................................................... 126 
+4.2.24. 蓝牙加卡用户 ................................................................................................ 127 
+ 
+4.2.25. 蓝牙设置锁用户的有效星期时间 ................................................................ 128 
+4.2.26. 蓝牙设置锁用户的有效日期时间 ................................................................ 129 
+4.2.27. 蓝牙清除锁用户的有效日期时间 ................................................................ 130 
+4.2.28. 蓝牙删除锁用户 ............................................................................................ 130 
+4.2.29. 获取待下发的锁用户异步请求 .................................................................... 131 
+4.2.30. 蓝牙获取锁时间 ............................................................................................ 132 
+4.2.31. 蓝牙获取锁用户列表 .................................................................................... 133 
+4.2.32. 蓝牙获取锁用户类型 .................................................................................... 133 
+4.2.33. 蓝牙让锁进入 Z-Wave 添加/删除设备状态 ................................................ 134 
+4.2.34. 蓝牙清除锁数据 ............................................................................................ 135 
+4.3. 历史记录查询服务 ........................................................................................ 135 
+4.3.1. (Redis5)查询设备 report ............................................. 136 
+4.3.2. (InfluxDB)查询设备 report ........................................... 140 
+4.3.3. 查询异步请求 ................................................................................................ 143 
+4.3.4. (InfluxDB)查询远程请求日志 report ................................... 145 
+A. 设备类型及其转换协议一览表................................................................................................ 146 
+ 
+第 3 方系统 
+ 
+网关 
+iSurpass 
+z-wave 门锁 
+ 
+ 
+ 
+ 
+开放服务 
+iSurpass 
+z-wave 设备 
+ 
+1. 关于果丁智能（iSurpass ）开放服务 
+ 
+果丁智能开 放 服 务 将 智能 门 锁 的 服 务 封 装 为 简 单 易 用 的
+http/websokcet 协议、json 数据格式，第 3 方的系统或 App 很容易
+与它集成。 
+ 
+1.1. 果丁智能开放服务基本架构 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+如上图所示 
+ 
+deviceid: dev2 
+nodeid: 3 
+ 
+ 
+ 
+ 
+deviceid: dev3 
+ 
+ 
+ 
+1) iSurpass 开放服务对第 3 方系统/App 应用提供 http/websocket 接
+口：http 接口用来接收第 3 方系统/App 的远程请求，websocket 
+用于远程控制网关设备进入/退  添加&删除设备状态、推送设
+备的 report 给第 3 方系统/App； 
+iSurpass 
+wifi 门锁 
+第 3 方 App iSurpass 
+NB-IoT 门锁 
+ 
+ 
+2) iSurpass 开放服务与iSurpass 网关/设备之间采用MQTT 协议通讯； 
+ 
+3) iSurpass 网关(或连接 iSurpass 开放服务的 NB-IoT 智能门锁、wifi
+门锁)上需配置 iSurpass 开放服务的服务器地址； 
+4) iSurpass 开放服务可单机部署，也可多服务器部署。 
+ 
+ 
+1.2. iSurpass 开放服务的安装包 
+ 
+iSurpass 开放服务的安装包可提供给第 3 方安装和集成，有以下版本： 
+ 
+   for Windows：32bit or 64bit 
+     for Linux：32bit or 64bit 
+   for 树莓派 
+ 
+ 
+2. HTTP 基础服务 
+ 
+2.1. 认证 
+ 
+采用 JWT 认证, see: 
+https://baijiahao.baidu.com/s?id=1608021814182894637 
+https://jwt.io/ 
+ 
+ 
+2.1.1. JWT Token 定义 
+ 
+◼ JWT header 
+{ 
+"alg": "HS256", 
+"typ": "JWT" 
+} 
+◼ JWT payload 
+{ 
+ 
+"appkey": "<AppKey>",  #第 3 方应用的 AppKey 
+"timestamp": "<TimeStamp>" #当前时间戳 
+} 
+◼ JWT signature 
+HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), <AppSecret>) 
+# AppSecret 为第 3 方应用的密钥 
+◼ JWT token 
+base64UrlEncode(header)+"."+base64UrlEncode(payload)+"."+signature 
+ 
+示例： 
+JWT header: 
+{"alg":"HS256","typ":"JWT"} 
+JWT payload: 
+{"appkey":"iSurpassApp","timestamp":"1234567890"} 
+AppSecret: 
+iSurpass2018 
+JWT token: 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0 
+ 
+2.1.2. JWT token 使用方式 
+ 
+所有 HTTP 请求 Header 带 Authorization 字段，值为: 
+Bearer <JWT token> 
+ 
+ 
+ 
+2.2. 网关 
+ 
+url: http://<ip>:<port>/gateway 
+encoding: UTF-8 
+*生产环境使用 https 
+ 
+ 
+ 
+2.2.1. 获取节点设备列表 
+ 
+方法: post 
+ 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetNodeList", 
+"deviceid": "<deviceid>" //网关设备ID 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"NodeList": [ 
+{ 
+"NodeID": <nodeid>, //节点 id 
+"NodeType": "<devicetype>", //节点设备类型，如 lock 
+"ProtocolType": "<protocoltype>", //协议类型，如: lock、nblock、wifilock 
+"DeviceModel": "<DeviceModel>" //设备厂商型号 ID 
+} 
+… 
+] 
+} 
+} 
+【注】 
+1）该接口适用于网关(z-wave 网关、TCP 网关)，不适用于单一设备(WIFI 锁、NB 锁、蓝牙
+锁、指纹采集器、NB 电表、NB 水表等) 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/gateway \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.GetNodeList", 
+"deviceid": "iSurpass2018100000" 
+}' 
+//返回结果： 
+ 
+{ 
+"data": { 
+"NodeList": [ 
+{ 
+"NodeID": 2, 
+"NodeType": "lock", 
+"ProtocolType": "lock" 
+}, 
+{ 
+"NodeID": 3, 
+"NodeType": "lock", 
+"ProtocolType": "lock" 
+}, 
+{ 
+"NodeID": 21, 
+"NodeType": "switch", 
+"ProtocolType": "switch" 
+}, 
+{ 
+"NodeID": 22, 
+"NodeType": "switch", 
+"ProtocolType": "switch" 
+} 
+] 
+}, 
+"resultcode": 1 
+} 
+ 
+ 
+2.2.2. 获取逻辑节点设备列表 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetLogicNodeList", 
+"deviceid": "<deviceid>" //网关设备ID 
+} 
+ 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"LogicNodeList": [ 
+{ 
+"LogicNodeID": "<logicnodeid>", //逻辑节点 id 
+"LogicNodeType": "<devicetype>", //逻辑节点设备类型，如 lock 
+"ProtocolType": "<protocoltype>" //协议类型，如: lock、nblock、wifilock 
+} 
+… 
+] 
+} 
+} 
+【注】 
+1）该接口适用于网关(z-wave 网关、TCP 网关)，不适用于单一设备(WIFI 锁、NB 锁、蓝牙
+锁、指纹采集器、NB 电表、NB 水表等) 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/gateway \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.GetLogicNodeList", 
+"deviceid": "iSurpass2018100000" 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"LogicNodeList": [ 
+{ 
+"LogicNodeID": "iRemote7005000000020-4-0-", 
+"LogicNodeType": "lock", 
+"ProtocolType": "lock" 
+}, 
+{ 
+"LogicNodeID": "iRemote7005000000020-22-0-", 
+ 
+"LogicNodeType": "switch", 
+"ProtocolType": "switch" 
+}, 
+{ 
+"LogicNodeID": "iRemote7005000000020-21-1-", 
+"LogicNodeType": "switch", 
+"ProtocolType": "switch" 
+}, 
+{ 
+"LogicNodeID": "iRemote7005000000020-21-2-", 
+"LogicNodeType": "switch", 
+"ProtocolType": "switch" 
+} 
+] 
+} 
+} 
+ 
+ 
+2.2.3. (z-wave 网关/无源网关)删除死节点 
+ 
+【注】此接口仅适应于删除网关上的死节点(节点对应的设备已长时间离网)，删除活在节点 的
+方式的参见: 请求网关设备进入/退🎧添加&删除设备状态 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.RemoveDeadNode", 
+"deviceid": "<deviceid>", //网关设备ID 
+"params": { 
+"NodeID": <NodeID> //死节点 ID 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-删除成功, 9-该设备不是死设备 10-删除失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+ 
+} 
+【注】 
+1）该接口仅适用于 z-wave 网关、无源网关 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/gateway \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.RemoveDeadNode", 
+"deviceid": "iSurpass2018100000", 
+"params": { 
+"NodeID": 4 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+ 
+ 
+ 
+2.2.4. 获取当前连接状态 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetConnectionStatus", 
+"deviceid": "<deviceid>",       //网关设备ID 
+"params": { 
+"ForceRefresh": <true/false>  //false(缺省): 直接返回缓存,  true: 访问设备&刷新缓存后返回 
+} 
+} 
+ 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"Online": <true/false>, //最新状态：true-在线 false-离线 
+"LastestDateTime": "<yyyy-mm-dd HH:MM:SS>", //最新状态日期时间 
+"Lastest_ts": <timestamp>,   //最新状态 Unix 时间戳(毫秒) 
+"IP": "<ip>", //设备的互联网 IP 
+"Network": "<network type>", //网络类型：LAN、WIFI、2G 
+"Version": "<software version>", //设备的软件版本号 
+"SSID": "<wifi ssid>", //WIFI SSID 
+"WIFI_IP": "<wifi ip>", //WIFI IP 
+"WIFI_MAC": "<wifi mac>", //WIFI MAC 
+"RSSI": <value> //wifi 或蜂窝移动信号强度值 
+} 
+} 
+【注】 
+1）该接口仅适用于 z-wave 网关 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/gateway \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.GetConnectionStatus", 
+"deviceid": "iRemote7005000000020" 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"IP": "119.123.42.149", 
+"LastestDateTime": "2019-07-09 11:13:57", 
+"Lastest_ts": 1562642037, 
+"Network": "WIFI", 
+"Online": true, 
+"RSSI": 98, 
+ 
+"SSID": "Tplink_Office_2.4G", 
+"Version": "v1.0.20", 
+"WIFI_IP": "192.168.5.6", 
+"WIFI_MAC": "F0FE6B50B7E3" 
+} 
+} 
+ 
+ 
+2.2.5. 获取 WIFI 或蜂窝移动网关的信号强度 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetRSSI", 
+"deviceid": "<deviceid>" //网关设备ID 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"deviceid": "<deviceid>", 
+"report": "thing.event.property.post", 
+"type": "notification", 
+"params": { 
+"property": "RSSI", 
+"value": <value> //信号强度值 
+} 
+} 
+【注】 
+1）该接口仅适用于 z-wave 网关 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/gateway \ 
+-H 'Accept: */*' \ 
+-H 'Authorization: Bearer 
+ 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.GetRSSI", 
+"deviceid": "iSurpass2019100002" 
+} 
+' 
+//返回结果： 
+{ 
+"RawData": "64070005006D000121", 
+"deviceid": "iSurpass2019100002", 
+"params": { 
+"property": "RSSI", 
+"value": 80 
+}, 
+"report": "thing.event.property.post", 
+"resultcode": 1, 
+"type": "notification" 
+} 
+ 
+ 
+ 
+ 
+2.2.6. 删除异步请求 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.RemoveAsyncRequest", 
+"deviceid": "<deviceid>", //网关设备ID 
+"params": { 
+"Receipt": "<receipt>" //异步调用的回执id 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-删除成功 
+"errorinfo": "", //错误信息 
+ 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+ 
+[示例] 
+curl -X GET \ 
+http://112.74.20.113:8888/gateway \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.RemoveAsyncRequest", 
+"deviceid": "iSurpass2019100041", 
+"params": { 
+"Receipt": "lock-1560226438542" 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+【注】 
+1) 该接口并不能回撤正在下发队列中的请求，最好是在 NB-IoT 等电池供电设备处于休眠状态时调用该
+接口 
+2) 该接口暂不支持同一个设备的并发请求，同一设备的两次删除异步请求调用需要相隔 1 秒以上; 
+ 
+ 
+ 
+2.2.7. 清除异步请求 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.ClearAsyncRequest", 
+"deviceid": "<deviceid>" //网关设备ID 
+} 
+ 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-删除成功 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+ 
+[示例] 
+curl -X GET \ 
+http://112.74.20.113:8888/gateway \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.ClearAsyncRequest", 
+"deviceid": "iSurpass2019100041" 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+【注】 
+1) 该接口并不能回撤正在下发队列中的请求，最好是在 NB-IoT 等电池供电设备处于休眠状态时调用该
+接口； 
+2) 该接口将清除指定设备当前时间之前创建的所有待下发的异步请求 
+ 
+ 
+2.2.8. (Z-wave7 网关)注册 DSK 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.RegistDSK", 
+"deviceid": "<deviceid>", //网关设备ID 
+"params": { 
+ 
+"DSK": "<device dsk>" //long range 设备的 dsk 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-删除成功 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1）该接口仅适用于 Z-wave7 网关(_supportdsk 属性值为true) 
+ 
+ 
+2.2.9. (Z-wave7 网关)注销 DSK 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.UnRegistDSK", 
+"deviceid": "<deviceid>", //网关设备ID 
+"params": { 
+"DSK": "<device dsk>" //long range 设备的 dsk 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-删除成功 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1） 该接口仅适用于 Z-wave7 网关(_supportdsk 属性会上为true) 
+2） 注销 DSK 成功后，会自动删除相应的节点设备 
+ 
+2.2.10. (Z-wave7 网关) 获取 RF REGION 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetRFRegion", 
+"deviceid": "<deviceid>" //网关设备ID 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"deviceid": "<deviceid>", 
+"report": "thing.event.property.post", 
+"type": "notification", 
+"params": { 
+"property": "RFRegion", 
+"value": <number> 
+} 
+} 
+RF REGION value: 
+0 EU 
+1 US 
+2 ANZ 
+3 HK 
+5 IL 
+7 RU 
+8 CN 
+9 US_LR 
+32 JP 
+33 KR 
+【注】 
+1）该接口仅适用于 Z-wave7 网关(_supportdsk 属性值为true) 
+ 
+2.2.11. (Z-wave7 网关) 设置 RF REGION 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.SetRFRegion", 
+"deviceid": "<deviceid>", //网关设备ID 
+"params": { 
+"RFRegion": <number> 
+} 
+} 
+RF REGION value: 
+0 EU 
+1 US 
+2 ANZ 
+3 HK 
+5 IL 
+7 RU 
+8 CN 
+9 US_LR 
+32 JP 
+33 KR 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-删除成功 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1）该接口仅适用于 Z-wave7 网关(_supportdsk 属性值为true) 
+ 
+2.3. 锁 
+ 
+http://<ip>:<port>/lock 
+encoding: UTF-8 
+*生产环境使用 https 
+ 
+ 
+ 
+2.3.1. 删除锁用户 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.DeleteUser", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserType": <UserType>,  //1-密码 2-指纹 3-MF 卡 4-身份证 7-人脸 
+"UserID": <UserID> //锁用户 ID 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+ 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.DeleteUser", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"params": { 
+"UserType": 1, 
+"UserID": 10 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+2.3.2. 添加/修改锁用户 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.AddUser", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserType": <UserType>, //1-密码 2-指纹 3-MF 卡 4-身份证 7-人脸 91-二维码 
+"UserLevel": <UserLevel>,  //1-管理员 2-普通用户 4-一次性临时密码(UserType 必须为 1) 
+"UserID": <UserID>,   //UserID 规则: 
+管理员： 1~9 
+ 
+普通用户： 10~230 
+一次性临时密码： 243~252 
+"UserPassword": "<UserPassword>"， //密码串/指纹数据串/卡数据/二维码内容文本 
+卡数据：MF 卡，4byte 值转换为十六进制串身
+份证卡，8byte 值转换为十六进制串 
+"FaceFileURL": "<URL path>"， //人脸照片文件的 URL path 
+"ValidWeekDays": <SumWeekdayValue>， //有效星期累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>"， //有效星期的起止时间 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>"， //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>" //有效期的终止日期时间 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 0-用户已存在 2-锁用户数超上限 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.AddUser", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"params": { 
+"UserType": 1, 
+"UserLevel": 2, 
+"UserID": 10, 
+ 
+"UserPassword": "5678", 
+"ValidBeginDateTime": "2018-10-27 14:06", 
+"ValidEndDateTime": "2018-12-27 23:59", 
+"ValidWeekDays": 127, 
+"ValidWeekTime": "00:00~23:59" 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+ 
+ 
+2.3.3. 修改锁用户的有效日期时间 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.UpdateUserValidDateTime", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID>, //锁用户 ID 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>",  //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>" //有效期的终止日期时间 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+ 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.UpdateUserValidDateTime", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"params": { 
+"UserID": 10, 
+"ValidBeginDateTime": "2018-10-27 14:06", 
+"ValidEndDateTime": "2018-12-27 23:59" 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+2.3.4. 修改锁用户的有效星期 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.UpdateUserValidWeekTime", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+ 
+"UserID": <UserID>, //锁用户 ID 
+"ValidWeekDays": <SumWeekdayValue>， //有效星期累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>" //有效星期的起止时间 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.UpdateUserValidWeekTime", 
+"deviceid": "iSurpass2018100000", 
+"nodeid":  2, 
+"params":{ 
+"UserID": 10, 
+"ValidWeekDays": 96, 
+"ValidWeekTime": "00:00~23:59" 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+2.3.5. 获取锁的当前状态 
+ 
+方法: post 
+ForceRefresh 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.property.get", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"ForceRefresh": <true/false>  //false(缺省): 直接返回缓存,  true: 访问设备&刷新缓存后返回 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"IsFault": <true/false>, //锁当前是否是故障状态：true-故障状态 false-正常状态 
+"Locked":<true/false>, //锁当前是否是落锁状态: true-落锁状态 false-开锁状态 
+"LockedFromInside":<true/false>, //锁当前是否反锁: true-反锁状态 false-未反锁状态 
+"BatteryPercentage":<percent>,  //电池电量百分比: 0~100 
+"CardNumber": "<card number>" //(NB 锁)NB 卡卡号 
+} 
+} 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.property.get", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2 
+}' 
+ 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"BatteryPercentage": 85, 
+"Locked": true 
+} 
+} 
+【注】仅 Z-Wave 锁支持 ForceRefresh 设为true 
+ 
+ 
+2.3.6. 远程开锁 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.OpenLock", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"Mode": <mode>, //开锁模式：0-常开 1-自动回锁 
+"AutoCancel": <seconds> //n 秒后自动取消请求，仅 async 为 true 时有效，缺省为 0(不自动 
+取消) 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+ 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.OpenLock", 
+"deviceid": "iSurpass2018100000", 
+"nodeid":  2, 
+"params": { 
+"Mode": 1 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+ 
+ 
+2.3.7. 远程落锁 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.CloseLock", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid> //智能锁在网关设备上的节点id 
+} 
+ 
+响应结果(Content-Type: application/json): 
+{ 
+ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.CloseLock", 
+"deviceid": "iSurpass2018100000", 
+"nodeid":  2 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+ 
+ 
+ 
+2.3.8. 将服务器的系统时间同步到锁 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.SetNodeSystemTime",  
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid> //智能锁在网关设备上的节点id 
+} 
+ 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+} 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://dev.isurpass.com.cn:8888/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.SetNodeSystemTime", 
+"deviceid": "iRemote2005000007242", 
+"nodeid":6 
+} 
+' 
+//返回结果： 
+{ 
+"RawData": "1E0800050001000100", 
+"resultcode": 1 
+} 
+ 
+ 
+2.3.9. 获取锁的当前日期时间 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.GetNodeSystemTime", "deviceid": 
+"<deviceid>", //网关设备ID 
+"nodeid":  <nodeid> //智能锁在网关设备上的节点id 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"report": "thing.event.NodeSystemTime.post", 
+ 
+"type": "notification", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid": <nodeid>, //智能锁在网关设备上的节点 id 
+"logicnodeid": "<logicnodeid>", //逻辑设备 id 
+"params": { 
+"Datetime": "<Y-M-D h:m:s>", //锁的当前日期时间 
+"UTCTimestamp": <timestamp>,  //UTC 时间戳(秒) 
+"Timezone": <timezone>  //锁的时区 
+} 
+} 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://dev.isurpass.com.cn:8888/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.GetNodeSystemTime", 
+"deviceid": "iRemote2005000007242", 
+"nodeid":6 
+} 
+' 
+//返回结果： 
+{ 
+"deviceid": "iRemote2005000007242", 
+"id": 0, 
+"logicnodeid": "iRemote2005000007242-6-0-", 
+"nodeid": 6, 
+"params": { 
+"Datetime": "2019-3-1 17:47:9" 
+}, 
+"report": "thing.event.NodeSystemTime.post", 
+"type": "notification" 
+} 
+ 
+ 
+ 
+ 
+2.3.10. 获取锁的版本信息 
+ 
+方法：post 
+ 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.GetNodeVersion", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid> //智能锁在网关设备上的节点id 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"report": "thing.event.NodeVersion.post", 
+"type": "notification", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid": <nodeid>, //智能锁在网关设备上的节点 id 
+"logicnodeid": "<logicnodeid>", //逻辑设备 id 
+"params": { 
+"Version": "<versioninfo>"  //锁的版本信息 
+} 
+} 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://dev.isurpass.com.cn:8888/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.GetNodeVersion", 
+"deviceid": "iRemote7005000000020", 
+"nodeid":105 
+} 
+' 
+//返回结果： 
+{ 
+"deviceid": "iRemote7005000000020", 
+"id": 0, 
+"logicnodeid": "iRemote7005000000020-105-0-", 
+"nodeid": 105, 
+"params": { 
+ 
+"Version": "000E01023331320000000000000000" 
+}, 
+"report": "thing.event.NodeVersion.post", 
+"type": "notification" 
+} 
+ 
+ 
+ 
+ 
+2.3.11. 清除锁的数据 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.ClearNodeData", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"Mode": <Mode> // 0-恢复 厂 1-清空密码 2-清空卡片 3-清空指纹 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+3) 当 Mode 参数值为 9 时不会下发指令到锁，非 9 时会下发指令到锁 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://dev.isurpass.com.cn:8888/lock \ 
+ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.ClearNodeData", 
+"deviceid": "iRemote7005000000020", 
+"nodeid":105, 
+"params": { 
+"Mode": 1 
+} 
+} 
+' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+ 
+ 
+2.3.12. 获取锁用户的有效日期时间 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetUserValidDateTime", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID> //锁用户 ID 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+ 
+"params": { 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>",  //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>" //有效期的终止日期时间 
+} 
+ 
+} 
+ 
+[示例] 
+curl -X GET \ 
+http://dev.isurpass.com.cn:8888/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.GetUserValidDateTime", 
+"deviceid": "iRemote7005000000020", 
+"nodeid": 123, 
+"params": { 
+"UserID": 11 
+} 
+} 
+' 
+//返回结果： 
+{ 
+"deviceid": "iRemote7005000000020", 
+"id": 0, 
+"logicnodeid": "iRemote7005000000020-123-0-", 
+"nodeid": 123, 
+"params": { 
+"ValidBeginDateTime": "2019-04-01 09:00", 
+"ValidEndDateTime": "2019-04-30 23:59" 
+}, 
+"report": "thing.event.UserValidDateTime.post", 
+"type": "notification" 
+} 
+ 
+ 
+2.3.13. 获取锁用户的有效星期 
+ 
+方法：post 
+ 
+请求头(header)： 
+ 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetUserValidWeekTime", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID> //锁用户 ID 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"params": { 
+"ValidWeekDays": <SumWeekdayValue>， //有效星期累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>" //有效星期的起止时间 
+} 
+ 
+ 
+} 
+【注】 
+ 
+[示例] 
+curl -X GET \ 
+http://dev.isurpass.com.cn:8888/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.GetUserValidWeekTime", 
+"deviceid": "iRemote7005000000020", 
+"nodeid": 123, 
+"params": { 
+"UserID": 11 
+} 
+} 
+' 
+ 
+//返回结果： 
+{ 
+"deviceid": "iRemote7005000000020", 
+"id": 0, 
+"logicnodeid": "iRemote7005000000020-123-0-", 
+"nodeid": 123, 
+"params": { 
+"ValidWeekDays": 127, 
+"ValidWeekTime": "00:00~23:59" 
+}, 
+"report": "thing.event.UserValidWeekTime.post", 
+"type": "notification" 
+} 
+ 
+ 
+ 
+ 
+2.3.14. 添加卡 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.AddCard", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID> //锁用户 ID: 1~230 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"params": { 
+"UserType": <UserType>, //1-密码 2-指纹 3-MF 卡 4-身份证 
+"UserLevel": <UserLevel>, //1-管理员 2-普通用户 4-一次性临时密码(UserType 必须为 1) 
+"UserID": <UserID>,  //卡用户 ID 
+ 
+"UserPassword": "<UserPassword>" //卡数据 
+} 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.AddCard", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2 
+}' 
+//返回结果： 
+{ 
+"params": { 
+"UserID": 20, 
+"UserLevel": 2, 
+"UserPassword": "C7AF0BD6", 
+"UserType": 3 
+}, 
+"resultcode": 1 
+} 
+ 
+ 
+2.3.15. 添加指纹 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.AddFingerPrint", 
+ 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID> //锁用户 ID: 1~230 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"params": { 
+"UserType": <UserType>, //1-密码 2-指纹 3-MF 卡 4-身份证 
+"UserLevel": <UserLevel>,  //1-管理员 2-普通用户 4-一次性临时密码(UserType 必须为 1) 
+"UserID": <UserID> //指纹用户 ID 
+} 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.AddFingerPrint", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2 
+}' 
+//返回结果： 
+{ 
+"params": { 
+"UserID": 33, 
+"UserLevel": 2, 
+"UserType": 2 
+ 
+}, 
+"resultcode": 1 
+} 
+ 
+ 
+ 
+ 
+ 
+2.3.16. 设置时区 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.SetNodeTimezone", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"Timezone": <timezone> //时区：-23 ~ 23 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+} 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://dev.isurpass.com.cn:8888/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.SetNodeTimezone", 
+"deviceid": "iRemote2005000007242", 
+"nodeid":6, 
+"params": 
+{ "Timezone": 
+8 
+} 
+ 
+} 
+' 
+//返回结果： 
+{ 
+"RawData": "1E0800050001000100", 
+"resultcode": 1 
+} 
+ 
+ 
+2.3.17. 停用锁用户 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.PauseUser", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID> //锁用户 ID 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+3） 该接口对蓝牙/二维码锁用户无效 
+ 
+2.3.18. 恢复锁用户 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.RestoreUser", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID> //锁用户 ID 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+3） 该接口对蓝牙/二维码锁用户无效 
+ 
+3. WebSocket 服务 
+ 
+3.1. 认证 
+ 
+JWT 认证方式， 详见 JWT Token 定义 
+*建立连接后发送 Bearer <JWT token>,<Accept-Language> 
+ 
+3.2. 请求 z-wave 网关设备进入/退出添加&删除设备状态 
+ 
+url: ws://<ip>:<port>/ws/addDelDevice 
+encoding: UTF-8 
+*生产环境使用 wss 
+ 
+ 
+1） 请求网关设备进入添加&删除设备状态： 
+{"method":"thing.service.EnterAddDelDeviceStatus", "deviceid":"<deviceid>"} 
+2） 请求网关设备退 添加&删除设备状态： 
+{"method":"thing.service.QuitAddDelDeviceStatus", "deviceid":"<deviceid>"} 
+【注】 
+1）该接口仅适用于 z-wave 网关 
+ 
+ 
+ 
+示例： 
+http://112.74.20.113:8888/www/ws.html 
+ 
+ 
+ 
+ 
+3.3. 接收设备的 report 
+ 
+url: ws://<ip>:<port>/ws/receiveReport 
+encoding: UTF-8 
+*生产环境使用 wss 
+ 
+3.3.1. 请求接收指定topic 的  report 
+ 
+3.3.1.1. 请求接收全部设备 report 
+ 
+{"method":"thing.service.ReceiveReport","topic":"all"} 
+ 
+3.3.1.2. 请求接收指定网关设备的 report 
+ 
+{"method":"thing.service.ReceiveReport", "topic":"<deviceid>"} 
+ 
+3.3.1.3. 请求接收指定网关下的指定节点设备的 report 
+ 
+{"method":"thing.service.ReceiveReport", "topic":"<deviceid>/<nodeid>"} 
+【注】report 内容详见 设备的 report 
+ 
+3.3.2. 请求停止接收指定topic 的  report 
+ 
+3.3.2.1. 请求停止接收全部设备 report 
+ 
+{"method":"thing.service.UnReceiveReport","topic":"all"} 
+ 
+3.3.2.2. 请求停止接收指定网关下的 report 
+ 
+{"method":"thing.service.UnReceiveReport ", "topic":"<deviceid>"} 
+ 
+3.3.2.3. 请求停止接收指定网关下的指定节点设备的 report 
+ 
+{"method":"thing.service.UnReceiveReport ", "topic":"<deviceid>/<nodeid>"} 
+ 
+示例： 
+http://112.74.20.113:8888/www/ws.html 
+ 
+ 
+ 
+ 
+3.4. 设备的 report 
+ 
+3.4.1. 网关设备的 report 
+ 
+3.4.1.1. 增加节点设备 report 
+ 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>",  //网关设备 id 
+"report": "thing.event.NewNode.post", 
+"type": "notification", 
+"params": { 
+"NodeID": <NodeID>, //新节点的nodeid 
+"DeviceType": "lock", //新节点的设备类型 
+"DeviceType_CN": "lock", //设备类型名称，与 Accept-Language 相关 
+"DeviceModel": "<DeviceModel>", //新节点的设备厂商型号 ID 
+"ProtocolType": "lock", 
+"DSK": "", //设备的 DSK 
+}, 
+"ts": <timestamp>, //Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+3.4.1.2. 删除节点设备 report 
+ 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>",  //网关设备 id 
+"report": "thing.event.DeleteNode.post", 
+"type": "notification", 
+"params": { 
+"NodeID": <NodeID> //已删除节点的nodeid 
+}, 
+"ts": <timestamp>, //Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.1.3. 网关设备上线 report 
+ 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"report": "thing.event.Online", 
+"type": "notification", 
+"params": { 
+"IP": "<IP>", //网关设备IP 
+"DeviceType": "<device type>", //网关设备类型: 
+gateway: Z-Wave 网关 
+fingerprintreader: 指纹采集器 
+"ProtocolType": "<protocol type>", //转换协议类型 
+"DeviceModel": "<device model>", //设备模型 
+"SupportDSK": <true/false> //是否支持 DSK 设备注册 
+}, 
+"ts": <timestamp>, //Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+3.4.1.4. 网关设备离线 report 
+ 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>",  //网关设备id 
+"report": "thing.event.Offline", 
+"type": "notification", 
+"ts": <timestamp>, //Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.1.5. (wifi/蜂窝移动)信号强度 report 
+ 
+ 
+{ 
+"deviceid": "<deviceid>", 
+"report": "thing.event.property.post", 
+"type": "notification", 
+"params": { 
+"property": "RSSI", 
+"property_cn": "RSSI", //本地化属性名称，与 Accept-Language 相关 
+"value": <value> //信号强度值 
+}, 
+"ts": <timestamp>, //Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.1.6. 节点故障 report 
+ 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>",  //网关设备 id 
+"report": "thing.event.NodeFault.post", 
+"type": "notification", 
+"params": { 
+"NodeID": <NodeID> //故障节点的nodeid 
+}, 
+ 
+"ts": <timestamp>, //Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.1.7. 网关设备复位report 
+ 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>",  //网关设备 id 
+"report": "thing.event.Reset.post", 
+"type": "notification", 
+"ts": <timestamp>, //Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.1.8. 网关扩展属性变更 report 
+ 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>",  //网关设备 id 
+"report": "thing.event.DeviceExtendedAttribute.post", 
+"type": "notification", 
+"params": { 
+"Name": "<value>" //扩展属性名: 扩展属性值 
+… 
+}, 
+"ts": <timestamp>, //Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.1.9. 节点扩展属性变更 report 
+ 
+{ 
+ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>",  //网关设备 id 
+"nodeid": <nodeid>, //节点设备 id 
+"report": "thing.event.NodeExtendedAttribute.post", 
+"type": "notification", 
+"params": { 
+"Name": "<value>" //扩展属性名: 扩展属性值 
+… 
+}, 
+"ts": <timestamp>, //Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+ 
+ 
+ 
+3.4.1.10. 逻辑节点扩展属性变更 report 
+ 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>",  //网关设备 id 
+"nodeid": <nodeid>, //节点设备 id 
+"logicnodeid": "<logicnodeid>", //逻辑节点 id 
+"report": "thing.event.LogicNodeExtendedAttribute.post", 
+"type": "notification", 
+"params": { 
+"Name": "<value>" //扩展属性名: 扩展属性值 
+… 
+}, 
+"ts": <timestamp>, //Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+ 
+ 
+ 
+3.4.1.11. 增加无源设备 report 
+ 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>",  //网关设备 id 
+"report": "thing.event.AddNaturalDevice.post", 
+"type": "notification", 
+"params": { 
+"NodeID": <NodeID>, //新节点的nodeid 
+ 
+"DeviceType": "natural", //新节点的设备类型 
+"DeviceType_CN": "natural", //设备类型名称，与 Accept-Language 相关 
+"DeviceModel": "<DeviceModel>", //新节点的设备厂商型号ID 
+"ProtocolType": "natural" 
+}, 
+"ts": <timestamp>, //Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+3.4.2. 锁的 report 
+ 
+3.4.2.1. 锁最新状态 report 
+ 
+ 
+{ 
+"id":<id>, //report id 
+"deviceid":"<deviceid>", //网关设备 id 
+"nodeid":<nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.property.post", 
+"type":"notification", //notification-通知 
+"params":{ 
+"property": "Locked", 
+"property_cn": "lock status", //本地化属性名称，与 Accept-Language 相关 
+"value": <true/false>, //锁当前是否是落锁状态: true-落锁状态 false-开锁状态 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>,  //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+ 
+3.4.2.2. 锁无线信号 report 
+ 
+ 
+{ 
+"id":<id>, //report id 
+ 
+"deviceid":"<deviceid>", //网关设备 id 
+"nodeid":<nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.property.post", 
+"type":"notification", //notification-通知 
+"params":{ 
+"property": "RSSI", 
+"property_cn": "RSSI", //本地化属性名称，与 Accept-Language 相关 
+"value":<percent>, //信号强度百分比: 0~100 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+ 
+3.4.2.3. 锁电池电量 report 
+ 
+ 
+{ 
+"id":<id>, //report id 
+"deviceid":"<deviceid>", //网关设备 id 
+"nodeid":<nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.property.post", 
+"type":"notification", //notification-通知 
+"params":{ 
+"property": "BatteryPercentage", 
+"property_cn": " battery percentage ", //本地化属性名称，与 Accept-Language 相关 
+"value":<percent>, //电池电量百分比: 0~100 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+3.4.2.4. 开门通知 report 
+ 
+ 
+{ 
+"id":<id>, //report id 
+"deviceid":"<deviceid>", //网关设备 id 
+"nodeid":<nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.DoorOpenNotification.post", 
+"type":"notification", //notification-通知 
+"params":{ 
+"Mode": <mode>, //1-密码 2-指纹 3-卡 4-身份证 5-App 远程 7-人脸 8-室内 9-蓝牙 
+10-动态密码 90-蓝牙钥匙扣 91-二维码 
+21-密码指纹 22-密码卡片 23-指纹卡片 24-双密码 25-双指纹 26-双卡 
+片 
+"Mode_CN": "<mode name>",  //开锁模式名称，与 Accept-Language 相关 
+"UserID": <userid>, //锁用户 id 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp>, //设备事件发生 Unix 时间戳(秒) 
+"UserName": "<username>", //锁用户名 
+"Password": "<password>" , //(仅当 Mode 为 10 时)开锁密码 
+"UserIDs": [<userid>, <userid>], //only for 组合开锁(Mode 21 ~ 26) 
+"UserNames": ["<username>","<username>"] //only for 组合开锁(Mode 21 ~ 26) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+ 
+3.4.2.5. 关门通知 report 
+ 
+ 
+{ 
+"id":<id>,  //report id 
+"deviceid":"<deviceid>", //网关设备 id 
+"nodeid":<nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.DoorCloseNotification.post", 
+"type":"notification", 
+"params":{ 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+ 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+ 
+3.4.2.6. 锁电池低电量告警 report 
+ 
+ 
+{ 
+"id":<id>, //report id 
+"deviceid":"<deviceid>", //网关设备 id 
+"nodeid":<nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.ElectricityAlarm.post", 
+"type":"alarm", //alarm-告警
+"params":{ 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+ 
+3.4.2.7. 取消反锁 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>",  //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.DoorUnlockedFromInside.post", 
+"type":"notification", 
+"params":{ 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+ 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.8. 锁设备告警 report 
+ 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>",  //网关设备 id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report": "thing.event.DeviceAlarm.post", 
+"type": "alarm", //alarm-告警 
+"params": { 
+"AlarmType": <AlarmType>, //告警类型: 1-防撬 3-试错 5 次以上 9-劫持 11-门未锁上 
+"TipInfo": "<TipInfo>" , //告警提示信息 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.9. 反锁 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>",  //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.DoorLockedFromInside.post", 
+"type":"notification", 
+"params":{ 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+ 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.10. 添加/修改锁用户 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.AddUser.post", 
+"type":"lockuser", 
+"params": { 
+"UserType": <UserType>, //类型: 1-密码 2-指纹 3-MF 卡 4-身份证 7-人脸 
+9-蓝牙/二维码 90-蓝牙钥匙扣
+"UserType_CN": "<user type name>", //类型名称，与 Accept-Language 相关 
+"UserLevel": <UserLevel>, //级别：1-管理员 2-普通用户 4-临时密码(UserType 必须为 1) 
+"UserLevel_CN": "<user level name>", //级别名称，与 Accept-Language 相关 
+"UserID": <UserID>, //UserID 规则: 
+管理员： 1~9 
+普通用户： 10~230 
+一次性临时密码： 243~252 
+"UserPassword": "<UserPassword>"， //密码串或卡号 
+卡数据：MF 卡，4byte 值转换为十六进制串身
+份证卡，8byte 值转换为十六进制串 
+"ValidWeekDays": <SumWeekdayValue>， //有效星期累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>"， //有效星期的起止时间 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>"， //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>"， //有效期的终止日期时间 
+"UserName": "<lock user name>", 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+3.4.2.11. 修改锁用户有效日期时间 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.UpdateUserValidDateTime.post", 
+"type":"lockuser", 
+"params": { 
+"UserID": <UserID>, //锁用户 ID 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>",   //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>",    //有效期的终止日期时间 
+"UserName": "<lock user name>", 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp>       //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.12. 修改锁用户有效星期时间 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.UpdateUserValidWeekTime.post", 
+"type":"lockuser", 
+"params": { 
+"UserID": <UserID>, //锁用户 ID 
+"ValidWeekDays": <SumWeekdayValue>， //有效星期累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>"， //有效星期的起止时间 
+"UserName": "<lock user name>", 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+ 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.13. 批量修改锁用户有效日期时间 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.BatchUpdateUserValidDateTime.post", 
+"type":"lockuser", 
+"params": { 
+"UserIDs":[ "<UserID>"], //锁用户(1 至多个) 
+"UserType": <UserType>,  //0-全部 1-密码 2-指纹 3-MF 卡 4-身份证 
+"UserType_CN": "<user type name>", //类型名称，与 Accept-Language 相关 
+"UserLevel": <UserLevel>,  //0-全部 1-管理员 2-普通用户 4-一次性临时密码 
+"UserLevel_CN": "<user level name>", //级别名称，与 Accept-Language 相关 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>",  //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>" //有效期的终止日期时间 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.14. 删除锁用户 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report": "thing.event.DeleteUser.post", 
+"type":"lockuser", 
+"params": { 
+"UserType": <UserType>, //1-密码 2-指纹 3-MF 卡 4-身份证 7-人脸 
+9-蓝牙/二维码 90-蓝牙钥匙扣 
+"UserID": <UserID>, //锁用户 ID 
+ 
+"UserName": "<lock user name>", 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.15. 清除锁用户 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.ClearNodeData.post",  "type":"lockuser", 
+"params": { 
+"Mode": <Mode> // 0-全部 1-清空密码 2-清空卡片 3-清空指纹  7-人脸 
+9-蓝牙/二维码 90-蓝牙钥匙扣 
+"Mode_CN": "<mode name>",  //清除模式名称，与 Accept-Language 相关 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.16. 设置锁用户名称 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.SetUserName.post", 
+"type":"lockuser", 
+ 
+"params": { 
+"UserID": <UserID>, //UserID 
+"UserName": "<UserName>", //(改后)用户名 
+"OldUserName": "<old UserName>" //(改前)用户名 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+ 
+3.4.2.17. 开锁失败 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report": "thing.event.FailToOpenLock.post", 
+"type":"notification", 
+"params": { 
+"InvalidType": <type>, //开锁失败类型: 
+0-无效用户 1-过期用户 2-暂停用户 3-开锁密钥失 
+效 
+"InvalidType_CN": "<type name>", //本地化开锁失败类型名称，与 Accept-Language 相关 
+"Mode": <mode>, //1-密码 2-指纹 3-卡 4-身份证 5-App 远程 7-人脸 91-二维 
+码 
+"Mode_CN": "<mode name>",  //开锁模式名称，与 Accept-Language 相关 
+"UserID": <UserID>, //锁用户 id 
+"UserName": "<UserName>", //锁用户名 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+3.4.2.18. NB 锁人工唤醒 report 
+ 
+{ 
+"id": <id>,  //report id 
+"deviceid": "<deviceid>", //网关设备 id 
+"nodeid": 1, //锁设备在网关设备上的节点 id 
+"report": "thing.event.Wakeup.post", 
+"type":"notification", 
+"params":{ 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+【注】NB 锁在线状态下人工按*0 唤醒锁后，锁会上报此事件 
+ 
+ 
+ 
+ 
+3.4.2.19. 获取蓝牙钥匙 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report": "thing.event.GetBluetoothKey.post", 
+"type":"notification", 
+"params": { 
+"UserID": <UserID>, //(获取蓝牙钥匙的)用户 id 
+"UserName": "<UserName>" //(获取蓝牙钥匙的)用户名 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+3.4.2.20. 更换蓝牙密钥 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report": "thing.event.UpdateBluetoothSecrets.post", 
+"type":"notification", 
+"params": { 
+"BluetoothSecrets": "<bluetooth secret data>" //(锁生成)蓝牙密钥TEA 加密数据 
+"UserID": <UserID>, //(更换蓝牙密钥的管理员)用户 id 
+"UserName": "<UserName>" //(更换蓝牙密钥的管理员)用户名 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.21. 复位蓝牙密钥 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report": "thing.event.ResetBluetoothSecrets.post", 
+"type":"notification", 
+"params": { 
+"UserID": <UserID>, //(复位蓝牙密钥的管理员)用户 id 
+"UserName": "<UserName>" //(复位蓝牙密钥的管理员)用户名 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.22. 异步批量添加/修改锁用户 report 
+ 
+{ 
+ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report":"thing.event.AsyncBatchAddUsers.post", 
+"type":"lockuser", 
+"params": { 
+"UserList": [ 
+{ 
+"UserType": <UserType>, //类型: 1-密码 2-指纹 3-MF 卡 4-身份证 
+"UserLevel": <UserLevel>, //级别：1-管理员 2-普通用户 4-临时密码(UserType 必须为 1) 
+"UserID": <UserID>,  //UserID 规则: 
+管理员： 1~9 
+普通用户： 10~230 
+一次性临时密码： 243~252 
+"UserPassword": "<UserPassword>"， //密码串或指纹数据串或卡数据 
+卡数据：MF 卡，4byte 值转换为十六进制串身
+份证卡，8byte 值转换为十六进制串 
+"ValidWeekDays": <SumWeekdayValue>， //有效星期累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>"， //有效星期的起止时间 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>"， //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>"， //有效期的终止日期时间 
+"UserName": "<lock user name>" 
+}, 
+… 
+] 
+} 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.23. 异步批量删除锁用户 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report": "thing.event.AsyncBatchDeleteUsers.post", 
+"type":"lockuser", 
+"params": { 
+ 
+"UserIDs":[<userid>,…] //已删除的锁用户id 数组 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.24. 锁的附加门磁的最新状态report 
+ 
+ 
+{ 
+"id":<id>, //report id 
+"deviceid":"<deviceid>", //网关设备 id 
+"nodeid":<nodeid>, //设备在网关设备上的节点 id 
+"logicnodeid":"<logicnodeid>", //逻辑节点 id 
+"report":"thing.event.property.post", 
+"type":"notification", //notification-通知 
+"params":{ 
+"property": "DoorSensorOpened", //属性名称 
+"property_cn": "DoorSensorOpened", //本地化属性名称，与 Accept-Language 相关 
+"value": <true/false>, //门磁当前是否是开状态: true-是 false-否 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>,  //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+ 
+3.4.2.25. 是否允许远程开锁最新状态report 
+ 
+ 
+{ 
+"id":<id>, //report id 
+"deviceid":"<deviceid>", //网关设备 id 
+"nodeid":<nodeid>, //设备在网关设备上的节点 id 
+"logicnodeid":"<logicnodeid>", //逻辑节点 id 
+"report":"thing.event.property.post", 
+"type":"notification", //notification-通知 
+ 
+"params":{ 
+"property": "EnableRemoteOpen", //属性名称 
+"property_cn": "EnableRemoteOpen", //本地化属性名称，与 Accept-Language 相关 
+"value": <true/false>, //是否允许远程开锁: true-是 false-否 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>,  //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.26. 门铃最新状态report 
+ 
+ 
+{ 
+"id":<id>, //report id 
+"deviceid":"<deviceid>", //网关设备 id 
+"nodeid":<nodeid>, //设备在网关设备上的节点 id 
+"logicnodeid":"<logicnodeid>", //逻辑节点 id 
+"report":"thing.event.property.post", 
+"type":"notification", //notification-通知 
+"params":{ 
+"property": "BellTurnOnStatus", //属性名称 
+"property_cn": "BellTurnOnStatus", //本地化属性名称，与 Accept-Language 相关 
+"value": <true/false>, //门铃响铃状态: true-是 false-否 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>,  //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+ 
+3.4.2.27. (多个)属性状态 report 
+ 
+{ 
+ 
+"id":<id>, //report id 
+"deviceid":"<deviceid>", //网关设备 id 
+"nodeid":<nodeid>, //设备在网关设备上的节点 id 
+"logicnodeid":"<logicnodeid>", //逻辑节点 id 
+"report":"thing.event.properties.post", "type":"notification",
+ //notification-通知 
+"params":{ 
+"properites": { 
+"BluetoothVersion": "<version>", 
+"CardNumber": "<card number>", 
+"IMEI": "<imei>", 
+"LockBoardVersion": "<version>", 
+"Network": "<network mode>", 
+"Online": true, 
+"RSSI": <RSSI percentage>, 
+"Version": "<version>" 
+} 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>" //本地化事件名称，与 Accept-Language 相关 
+} 
+【注】不同类型的锁的 properties 会有所不同，比如 WIFI 锁会有 SSID 属性、蓝牙锁有 BluetoothVersion 
+属性。 
+ 
+ 
+ 
+3.4.2.28. 停用锁用户 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report": "thing.event.PauseUser.post", 
+"type":"lockuser", 
+"params": { 
+"UserType": <UserType>, //1-密码 2-指纹 3-MF 卡 4-身份证 7-人脸 
+"UserID": <UserID>,  //锁用户 ID 
+"UserName": "<lock user name>", 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+ 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+ 
+3.4.2.29. 恢复锁用户 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report": "thing.event.RestoreUser.post", 
+"type":"lockuser", 
+"params": { 
+"UserType": <UserType>, //1-密码 2-指纹 3-MF 卡 4-身份证 7-人脸 
+"UserID": <UserID>,  //锁用户 ID 
+"UserName": "<lock user name>", 
+"HappenedTime": "<YYYY-MM-DD HH:MM>",  //设备事件发生时间(设备的本地时间) 
+"HappenedZone": <time zone>, //设备的时区 
+"Happened_ts": <happened timestamp> //设备事件发生 Unix 时间戳(秒) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+3.4.2.30. 身份证认证结果 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report": "thing.event.IDAuthentication.post", 
+"params": { 
+"UID": "<UID>", //身份卡卡号(HEX) 
+"Result": <result>, //认证结果：1-成功，其它值失败 
+"Len": <len>, //结果信息长度 
+"Info": "<json>" //结果信息 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+ 
+"dt": "<yyyy-mm-dd HH:MM:SS>" //系统处理事件的日期时间 
+} 
+【注】 
+结果信息示例： 
+{"ClientID":"23425550474078","SAMID":"50157046038","State":"IDLE","ErrCode":1000,"Data":"{\"xingming\":\ 
+"张三 \",\"xingbie\":\"1\",\"minzu\":\"01\",\"chusheng\":\"19000101\",\"zhuzhi\":\"广东省深圳
+市龙岗区\",\"sfzno\":\"410123456789123456\",\"qfjg\":\"深圳市公安局龙华分局 
+\",\"st\":\"20100101\",\"et\":\"20990101\",\"zp\":\"\"}"} 
+ 
+ 
+ 
+3.4.2.31. 上报密码/卡号 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report": "thing.event.Code.post", 
+"type":"notification", 
+"params": { 
+"Type": "<type>", //类型：password-密码 mfcard-MF 卡 idcard-身份证卡 
+"Code": "<HEX>" //密码或卡号(HEX) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+【注】仅支持z-wave 锁 
+ 
+ 
+ 
+3.4.2.32. 上报卡号 report 
+ 
+{ 
+"id": <id>, //report id 
+"deviceid": "<deviceid>", //网关设备id 
+"nodeid": <nodeid>, //锁设备在网关设备上的节点 id 
+"report": "thing.event.Code.post", 
+"type":"notification", 
+"params": { 
+"Type": "<type>", //类型：mfcard-MF 卡 idcard-身份证卡 
+"Code": "<HEX>" //卡号(HEX) 
+}, 
+"ts": <timestamp>, //系统处理事件的 Unix 时间戳(秒) 
+ 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //系统处理事件的日期时间 
+"report_cn": "<report event name>", //本地化事件名称，与 Accept-Language 相关 
+"detail_cn": "<report event description>" //本地化事件描述，与 Accept-Language 相关 
+} 
+ 
+ 
+ 
+ 
+ 
+ 
+3.5. 接收异步请求的操作结果 
+ 
+url: ws://<ip>:<port>/ws/receiveAsyncReply 
+encoding: UTF-8 
+*生产环境使用 wss 
+【注】异步请求参见： 
+添加/修改锁用户删除
+锁用户 
+修改锁用户的有效日期时间
+修改锁用户的有效星期 
+远程开锁远
+程落锁添
+加卡添加
+指纹 
+ 
+javascript client 示例： 
+http://112.74.20.113:8888/www/ws_receive_async_reply.html 
+ 
+3.6. 请求指纹采集器采集指纹 
+ 
+url: ws://<ip>:<port>/ws/fingerprint 
+encoding: UTF-8 
+*生产环境使用 wss 
+ 
+ 
+1） 请求指纹采集器进入采集指纹状态： 
+{"method":"thing.service.EnterReadFingerPrint", "deviceid":"<deviceid>"} 
+ 
+ 
+ 
+2） 请求指纹采集器退 采集指纹状态： 
+{"method":"thing.service.QuitReadFingerPrint", "deviceid":"<deviceid>"} 
+ 
+示例： 
+http://112.74.20.113:8888/www/ws_fingerprintreader.html 
+ 
+ 
+【注】按收到的顺序把 FingerPrintDataHex 字段值拼接起来就是指纹数据(HEX 格式） 
+ 
+ 
+4. HTTP 高级应用服务 
+ 
+4.1. 扩展属性服务 
+ 
+*扩展属性的存取依赖于 MongoDB 
+url: http://<ip>:<port>/app 
+encoding: UTF-8 
+*生产环境使用 https 
+ 
+ 
+ 
+4.1.1. 设置网关扩展属性 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.SetDeviceExtendedAttribute", 
+"deviceid": "<deviceid>", //网关设备ID 
+"params": { 
+"<Name>": <value> //扩展属性名: 属性值 
+} 
+} 
+【注】属性名可以是任何字母打头的字符串，属性值可以是任何 json 值(字符串，整型，浮点型，布尔，对
+象，数组) 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+ 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+ 
+[示例] 
+curl -X POST \ 
+http://localhost/app \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'Content-Type: application/json' \ 
+-H 'Postman-Token: 406f8f51-5bed-476e-ac82-dc0688df3b98' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.SetDeviceExtendedAttribute", 
+"deviceid": "iRemote7005000000020", 
+"params": { 
+"Name": "MQTT 网关" 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+4.1.2. 获取网关属性 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetDeviceAttribute", 
+"deviceid": "<deviceid>", //网关设备ID 
+"params": { 
+"WithoutProperties": <true/false> //不获取设备状态属性，缺省false 
+} 
+} 
+ 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"Name": "<value>", //扩展属性名: 属性值 
+… 
+"_deviceid": "<deviceid>", //内置的设备属性 
+"_isvirtual": true, //是否是虚拟设备 
+"_supportdsk": <true/false>, //是否支持 DSK 设备注册 
+"_properties": { 
+"Online": <true/false>, //最新状态：true-在线 false-离线 
+"LastestDateTime": "<yyyy-mm-dd HH:MM:SS>", //最新状态日期时间 
+"Lastest_ts": <timestamp>,   //最新状态 Unix 时间戳(毫秒) 
+"IP": "<ip>", //设备的互联网 IP 
+"Network": "<network type>", //网络类型：LAN、WIFI、2G 
+"Version": "<software version>", //设备的软件版本号 
+"SSID": "<wifi ssid>", //WIFI SSID 
+"WIFI_IP": "<wifi ip>", //WIFI IP 
+"WIFI_MAC": "<wifi mac>", //WIFI MAC 
+"RSSI": <value> //wifi 或蜂窝移动信号强度值 
+} 
+} 
+} 
+【注】 
+1) _打头的属性是系统内置的设备属性 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'Content-Type: application/json' \ 
+-d '{ 
+"method": "thing.service.GetDeviceAttribute", 
+"deviceid": "iRemote7005000000020" 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+ 
+"_deviceid": "iRemote7005000000020", 
+"_properties": { 
+"IP": "119.123.42.149", 
+"LastestDateTime": "2019-07-09 11:52:53", 
+"Lastest_ts": 1562644373, 
+"Network": "WIFI", 
+"Online": true, 
+"RSSI": 80, 
+"SSID": "Tplink_Office_2.4G", 
+"Version": "v1.0.20", 
+"WIFI_IP": "192.168.5.6", 
+"WIFI_MAC": "F0FE6B50B7E3" 
+} 
+} 
+} 
+ 
+ 
+4.1.3. 按扩展属性查询网关 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetDeviceList", 
+"params": { 
+"WithoutProperties": <true/false>, //不获取设备状态属性，缺省false 
+"Conditions": {"<attr>":"<value>"}, //属性:值, 查询条件可以指定多个(与的关系) 
+"SortBy": ["<attr>"], //排序属性，attr 升序，-attr 降序，排序可以指定多个 
+"PageSize": <pagesize>, //每页记录数 
+"Page": <page> //第几页 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+ 
+"TotalCount": <TotalCount> //总记录数 
+"PageCount": <PageCount>  //总页数 
+"PageSize": <pagesize>, //每页记录数 
+"Page": <page>, //当前第几页 
+"PageList": [ //当前页的设备列表 
+{ 
+"Name": "<value>", //属性名: 属性值 
+… 
+"_deviceid": "<deviceid>", //内置的设备属性 
+"_isvirtual": true,  //是否是虚拟设备 
+"_supportdsk": <true/false>, //是否支持 DSK 设备注册 
+"_properties": { 
+"Online": <true/false>, //最新状态：true-在线 false-离线 
+"LastestDateTime": "<yyyy-mm-dd HH:MM:SS>", //最新状态日期时间 
+"Lastest_ts": <timestamp>,   //最新状态 Unix 时间戳(毫秒) 
+"IP": "<ip>", //设备的互联网 IP 
+"Network": "<network type>", //网络类型：LAN、WIFI、2G 
+"Version": "<software version>", //设备的软件版本号 
+"SSID": "<wifi ssid>", //WIFI SSID 
+"WIFI_IP": "<wifi ip>", //WIFI IP 
+"WIFI_MAC": "<wifi mac>", //WIFI MAC 
+"RSSI": <value> //wifi 或蜂窝移动信号强度值 
+} 
+… 
+} 
+… 
+] 
+} 
+【注】 
+ 
+1) Z-Wave 网关无_isvirtual 属性， WIFI 锁/NB 锁/指纹采集器等设备系统会自动生成一个
+虚拟网关：_isvirtual 属性值为 true 
+2) 该接口不适合于以下使用方式： 
+业务应用系统周期性地全量同步设备及其状态 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'Content-Type: application/json' \ 
+ 
+-H 'Postman-Token: a4ebcb91-0832-4280-affe-49627626946a' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.GetDeviceList", 
+"params": { 
+"SortBy": ["Name"] 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"TotalCount": 1, 
+"PageCount": 1, 
+"PageSize": 10, 
+"Page": 1, 
+"PageList": [ 
+{ 
+"_deviceid": "iRemote7005000000020", 
+"_properties": { 
+"IP": "119.123.42.149", 
+"LastestDateTime": "2019-07-09 11:52:53", 
+"Lastest_ts": 1562644373, 
+"Network": "WIFI", 
+"Online": true, 
+"RSSI": 80, 
+"SSID": "Tplink_Office_2.4G", 
+"Version": "v1.0.20", 
+"WIFI_IP": "192.168.5.6", 
+"WIFI_MAC": "F0FE6B50B7E3" 
+} 
+} 
+] 
+} 
+} 
+ 
+ 
+4.1.4. 设置节点设备扩展属性 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+ 
+Authorization: Bearer <JWT token> 
+ 
+请求参数： 
+ 
+{ 
+"method": "thing.service.SetNodeExtendedAttribute", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能设备在网关设备上的节点id 
+"params": { 
+"<Name>": <value> //扩展属性名: 属性值 
+} 
+} 
+【注】属性名可以是任何字母打头的字符串，属性值可以是任何 json 值(字符串，整型，浮点型，布尔，对
+象，数组) 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+ 
+[示例] 
+curl -X POST \ 
+http://localhost/app \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'Content-Type: application/json' \ 
+-H 'Postman-Token: 406f8f51-5bed-476e-ac82-dc0688df3b98' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.SetNodeExtendedAttribute", 
+"deviceid": "iSurpass2018100000", 
+"nodeid":  2, 
+"params": { 
+"Name": "test lock2", 
+"SSID": "test" 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+4.1.5. 获取节点设备属性 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetNodeAttribute", 
+"deviceid": "<deviceid>", //网关设备 ID 
+"nodeid":  <nodeid>, //智能设备在网关设备上的节点 id 
+"params": { 
+"WithoutProperties": <true/false> //不获取设备状态属性，缺省false 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"Name": "<value>", //扩展属性名: 属性值 
+… 
+"_deviceid": "<deviceid>", //内置的设备属性 
+"_isentity": <true/false>, //内置的设备属性 
+"_nodeid": <nodeid>, //内置的设备属性 
+"_nodetype": "<devicetype>", //内置的设备属性 
+"_nodeprotocoltype": "<nodeprotocoltype>", //内置的设备属性 
+"_islogic": <true/false>, //内置的设备属性 
+"_logicid": "<logicid>", //内置的设备属性 
+"_logicnodetype": "<logicnodetype>",  //内置的设备属性 
+"_logicnodeprotocoltype": "<logicnodeprotocoltype>",  //内置的设备属性 
+"_isbluetooth": true, //内置的设备属性 
+"_bluetooth_mac": "<bluetooth MAC>",  //内置的设备属性 
+"_bluetooth_name": "<bluetooth name>",  //内置的设备属性 
+"_dsk": "", //内置的设备属性 
+"_properties": { //内置的设备属性
+"Name": "<value>"  //属性名: 属性值 
+… 
+} 
+ 
+} 
+} 
+【注】 
+1) _打头的属性是系统内置的设备属性 
+2) 仅蓝牙设备有_isbluetooth、_bluetooth_mac、_bluetooth_name 这三个属性 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'Content-Type: application/json' \ 
+-H 'Postman-Token: 043d0802-d7a1-4ff9-b7e4-eb005dcca176' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.GetNodeAttribute", 
+"deviceid": "iSurpass2018100000", 
+"nodeid":  2 
+} 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"Name": "test lock2", 
+"SSID": "test", 
+"_deviceid": "iSurpass2018100000", 
+"_isentity": true, 
+"_islogic": true, 
+"_logicid": "iSurpass2018100000-2-0-", 
+"_logicnodeprotocoltype": "lock", 
+"_logicnodetype": "lock", 
+"_nodeid": 2, 
+"_nodeprotocoltype": "lock", 
+"_nodetype": "lock", 
+"_properties": { 
+"BatteryPercentage": 85, 
+"Locked": true 
+} 
+} 
+} 
+ 
+4.1.6. 按扩展属性查询节点设备 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetNodeList", 
+"params": { 
+"WithoutProperties": <true/false>, //不获取设备状态属性，缺省false 
+"Conditions": {"<attr>":"<value>"}, //属性:值, 查询条件可以指定多个(与的关系) 
+"SortBy": ["<attr>"], //排序属性，attr 升序，-attr 降序，排序可以指定多个 
+"PageSize": <pagesize>, //每页记录数 
+"Page": <page> //第几页 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"TotalCount": <TotalCount> //总记录数 
+"PageCount": <PageCount>  //总页数 
+"PageSize": <pagesize>, //每页记录数 
+"Page": <page>, //当前第几页 
+"PageList": [ //当前页的设备列表 
+{ 
+"Name": "<value>", //扩展属性名: 属性值 
+… 
+"_deviceid": "<deviceid>", //内置的设备属性 
+"_isentity": <true/false>, //内置的设备属性 
+"_nodeid": <nodeid>, //内置的设备属性 
+"_nodetype": "<devicetype>", //内置的设备属性 
+"_nodeprotocoltype": "<nodeprotocoltype>", //内置的设备属性 
+"_islogic": <true/false>, //内置的设备属性 
+"_logicid": "<logicid>", //内置的设备属性 
+"_logicnodetype": "<logicnodetype>",  //内置的设备属性 
+"_logicnodeprotocoltype": "<logicnodeprotocoltype>",  //内置的设备属性 
+ 
+"_isbluetooth": true, //内置的设备属性 
+"_bluetooth_mac": "<bluetooth MAC>",  //内置的设备属性 
+"_bluetooth_name": "<bluetooth name>",  //内置的设备属性 
+"_dsk": "",  //内置的设备属性 
+"_properties": { //内置的设备属性
+"Name": "<value>"  //属性名: 属性值 
+… 
+} 
+} 
+… 
+] 
+} 
+【注】 
+1) _打头的属性是系统内置的设备属性 
+2) 仅蓝牙设备有_isbluetooth、_bluetooth_mac、_bluetooth_name 这三个属性 
+3) 该接口不适合于以下使用方式： 
+业务应用系统周期性地全量同步设备及其状态 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'Content-Type: application/json' \ 
+-H 'Postman-Token: a4ebcb91-0832-4280-affe-49627626946a' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.GetNodeList", 
+"params": { 
+"Conditions": {"SSID":"test"}, 
+"SortBy": ["-Name"], 
+"PageSize": 8, 
+"Page": 1 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"TotalCount": 2, 
+"PageCount": 1, 
+"PageSize": 8, 
+ 
+"Page": 1, 
+"PageList": [ 
+{ 
+"Name": "test lock3", 
+"SSID": "test", 
+"_deviceid": "iSurpass2018100000", 
+"_isentity": true, 
+"_islogic": true, 
+"_logicid": "iSurpass2018100000-3-0-", 
+"_logicnodeprotocoltype": "lock", 
+"_logicnodetype": "lock", 
+"_nodeid": 3, 
+"_nodeprotocoltype": "lock", 
+"_nodetype": "lock", 
+"_properties": { 
+"BatteryPercentage": 85, 
+"Locked": true 
+} 
+}, 
+{ 
+"Name": "test lock2", 
+"SSID": "test", 
+"_deviceid": "iSurpass2018100000", 
+"_isentity": true, 
+"_islogic": true, 
+"_logicid": "iSurpass2018100000-2-0-", 
+"_logicnodeprotocoltype": "lock", 
+"_logicnodetype": "lock", 
+"_nodeid": 2, 
+"_nodeprotocoltype": "lock", 
+"_nodetype": "lock", 
+"_properties": { 
+"BatteryPercentage": 85, 
+"Locked": true 
+} 
+} 
+] 
+} 
+} 
+ 
+4.1.7. 设置逻辑节点扩展属性 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.SetLogicNodeExtendedAttribute", 
+"logicnodeid":  "<logicnodeid>", //逻辑节点id 
+"params": { 
+"<Name>": <value> //扩展属性名: 属性值 
+} 
+} 
+【注】属性名可以是任何字母打头的字符串，属性值可以是任何 json 值(字符串，整型，浮点型，布尔，对
+象，数组) 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'Content-Type: application/json' \ 
+-H 'Postman-Token: 406f8f51-5bed-476e-ac82-dc0688df3b98' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.SetLogicNodeExtendedAttribute", 
+"logicnodeid":  "iRemote7005000000020-21-3-", 
+"params": { 
+"Name": "开关 3", 
+"Room":"餐厅" 
+} 
+}' 
+ 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+4.1.8. 获取逻辑节点属性 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetLogicNodeAttribute", 
+"logicnodeid":  "<logicnodeid>", //逻辑节点id 
+"params": { 
+"WithoutProperties": <true/false> //不获取设备状态属性，缺省false 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"Name": "<value>", //扩展属性名: 属性值 
+… 
+"_deviceid": "<deviceid>", //内置的设备属性 
+"_isentity": <true/false>, //内置的设备属性 
+"_nodeid": <nodeid>, //内置的设备属性 
+"_nodetype": "<devicetype>", //内置的设备属性 
+"_nodeprotocoltype": "<nodeprotocoltype>", //内置的设备属性 
+"_islogic": <true/false>, //内置的设备属性 
+"_logicid": "<logicid>", //内置的设备属性 
+"_logicnodetype": "<devicetype>", //内置的设备属性 
+"_logicnodeprotocoltype": "<logicnodeprotocoltype>",  //内置的设备属性 
+"_isbluetoothlock": true,  //内置的设备属性 
+"_bluetooth_mac": "<bluetooth MAC>",  //内置的设备属性 
+"_bluetooth_name": "<bluetooth name>",  //内置的设备属性 
+ 
+"_dsk": "", //内置的设备属性 
+"_properties": { //内置的设备属性
+"Name": "<value>"  //属性名: 属性值 
+… 
+} 
+} 
+} 
+【注】 
+1) _打头的属性是系统内置的设备属性 
+2) 仅蓝牙锁有_isbluetoothlock、_bluetooth_mac、_bluetooth_name 这三个属性 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'Content-Type: application/json' \ 
+-H 'Postman-Token: 043d0802-d7a1-4ff9-b7e4-eb005dcca176' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.GetLogicNodeAttribute", 
+"logicnodeid":  "iRemote7005000000020-21-3-" 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"Name": "开关 3", 
+"Room": "餐厅", 
+"_deviceid": "iRemote7005000000020", 
+"_isentity": false, 
+"_islogic": true, 
+"_logicid": "iRemote7005000000020-21-3-", 
+"_nodeprotocoltype": "switch", 
+"_nodetype": "switch", 
+"_nodeid": 21, 
+"_logicnodeprotocoltype": "switch", 
+"_logicnodetype": "switch", 
+"_properties": { 
+"IsFault": false, 
+"Status": "off" 
+} 
+} 
+ 
+} 
+ 
+ 
+4.1.9. 按扩展属性查询逻辑节点 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetLogicNodeList", 
+"params": { 
+"WithoutProperties": <true/false>, //不获取设备状态属性，缺省false 
+"Conditions": {"<attr>":"<value>"}, //属性:值, 查询条件可以指定多个(与的关系) 
+"SortBy": ["<attr>"], //排序属性，attr 升序，-attr 降序，排序可以指定多个 
+"PageSize": <pagesize>, //每页记录数 
+"Page": <page> //第几页 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"TotalCount": <TotalCount> //总记录数 
+"PageCount": <PageCount>  //总页数 
+"PageSize": <pagesize>, //每页记录数 
+"Page": <page>, //当前第几页 
+"PageList": [ //当前页的设备列表 
+{ 
+"Name": "<value>", //扩展属性名: 属性值 
+… 
+"_deviceid": "<deviceid>", //内置的设备属性 
+"_isentity": <true/false>, //内置的设备属性 
+"_nodeid": <nodeid>, //内置的设备属性 
+"_nodetype": "<devicetype>", //内置的设备属性 
+"_nodeprotocoltype": "<nodeprotocoltype>", //内置的设备属性 
+"_islogic": <true/false>, //内置的设备属性 
+ 
+"_logicid": "<logicid>",  //内置的设备属性 
+"_logicnodetype": "<devicetype>",  //内置的设备属性 
+"_logicnodeprotocoltype": "<logicnodeprotocoltype>",  //内置的设备属性 
+"_isbluetooth": true, //内置的设备属性 
+"_bluetooth_mac": "<bluetooth MAC>",  //内置的设备属性 
+"_bluetooth_name": "<bluetooth name>",  //内置的设备属性 
+"_dsk": "", //内置的设备属性 
+"_properties": { //内置的设备属性
+"Name": "<value>"  //属性名: 属性值 
+… 
+} 
+} 
+… 
+] 
+} 
+1) _打头的属性是系统内置的设备属性 
+2) 仅蓝牙设备有_isbluetooth、_bluetooth_mac、_bluetooth_name 这三个属性 
+3) 该接口不适合于以下使用方式： 
+业务应用系统周期性地全量同步设备及其状态 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'Content-Type: application/json' \ 
+-H 'Postman-Token: a4ebcb91-0832-4280-affe-49627626946a' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.GetLogicNodeList", 
+"params": { 
+"Conditions": {"Room":"餐厅"} 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"TotalCount": 2, 
+"PageCount": 1, 
+"PageSize": 10, 
+"Page": 1, 
+ 
+"PageList": [ 
+{ 
+"_deviceid": "iRemote7005000000020", 
+"_isentity": true, 
+"_islogic": true, 
+"_logicid": "iRemote7005000000020-124-0-", 
+"_logicnodeprotocoltype": "lock", 
+"_logicnodetype": "lock", 
+"_nodeid": 124, 
+"_nodeprotocoltype": "lock", 
+"_nodetype": "lock", 
+"_properties": { 
+"BatteryPercentage": 99, 
+"IsFault": false, 
+"Locked": true 
+} 
+}, 
+{ 
+"Name": "开关 3", 
+"Room": "餐厅", 
+"_deviceid": "iRemote7005000000020", 
+"_isentity": false, 
+"_islogic": true, 
+"_logicid": "iRemote7005000000020-21-3-", 
+"_logicnodeprotocoltype": "switch", 
+"_logicnodetype": "switch", 
+"_nodeprotocoltype": "switch", 
+"_nodetype": "switch", 
+"_nodeid": 21, 
+"_properties": { 
+"IsFault": false, 
+"Status": "off" 
+} 
+} 
+] 
+} 
+} 
+ 
+4.2. 锁高级服务 
+ 
+*锁相关数据存储依赖于 MongoDB 
+url: http://<ip>:<port>/app/lock 
+encoding: UTF-8 
+*生产环境使用 https 
+ 
+4.2.1. 获取锁的用户列表 
+ 
+*仅限于通过开放服务接口远程创建的锁用户（不包括在锁上手工添 加
+的锁用户）。 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetLockUserList", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"Conditions": {"<attr>":"<value>"}, //属性:值, 查询条件可以指定多个(与的关系) 
+"SortBy": ["<attr>"] //排序属性，attr 升序，-attr 降序，排序可以指定多个 
+} 
+ 
+ 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+ 
+"LockUserList": [ 
+{ 
+"UserType": <UserType>, //1-密码 2-指纹 3-MF 卡 4-身份证 
+9-蓝牙/二维码 90-蓝牙钥匙扣 7-人脸 
+"UserLevel": <UserLevel>,  //1-管理员 2-普通用户 4-一次性临时密码(UserType 必须为 
+1) 
+"UserID": <UserID>, //UserID 规则: 
+管理员： 1~9 
+普通用户： 10~230 
+一次性临时密码： 243~252 
+"UserPassword": "<UserPassword>", //密码串或指纹数据串或卡数据 
+卡数据：MF 卡，4byte 值转换为十六进制串身
+份证卡，8byte 值转换为十六进制串 
+"ValidWeekDays": <SumWeekdayValue>,  //累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>",  //有效星期的起止时间 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>", //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>", //有效期的终止日期时间 
+"UserName": "<user name>",  //用户名称 
+"Owner": "<owner account>", //owner 用户 
+"Paused": <true/false> //停用状态(true/false) 
+} 
+… 
+] 
+} 
+} 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.GetLockUserList", 
+"deviceid": "iSurpass2019100001", 
+"nodeid":  2 
+} 
+' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+ 
+"data": { 
+"LockUserList": [ 
+{ 
+"UserID": 10, 
+"UserLevel": 2, 
+"UserPassword": "1111", 
+"UserType": 1, 
+"ValidBeginDateTime": "2019-04-10 09:00", 
+"ValidEndDateTime": "2019-04-10 23:59", 
+"ValidWeekDays": 127, 
+"ValidWeekTime": "00:00~23:59", 
+"_deviceid": "iSurpass2019100001", 
+"_nodeid": 2 
+}, 
+{ 
+"UserID": 31, 
+"UserLevel": 2, 
+"UserPassword": "96AF6269", 
+"UserType": 3, 
+"ValidBeginDateTime": "2019-04-01 09:00", 
+"ValidEndDateTime": "2019-04-30 23:59", 
+"ValidWeekDays": 127, 
+"ValidWeekTime": "00:00~23:59", 
+"_deviceid": "iSurpass2019100001", 
+"_nodeid": 2 
+} 
+] 
+} 
+ 
+ 
+4.2.2. 更改指定类型锁用户的有效日期时间 
+ 
+*仅限于通过开放服务接口远程创建的锁用户（不包括在锁上手工添 加
+的锁用户），锁用户的数据存储依赖于 MongoDB。 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+ 
+ 
+请求参数： 
+ 
+{ 
+"method": "thing.service.UpdateLockUserValidDateTime", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserType": <UserType>,  //0-全部 1-密码 2-指纹 3-MF 卡 4-身份证 
+"UserLevel": <UserLevel>,  //0-全部 1-管理员 2-普通用户 4-一次性临时密码 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>",  //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>" //有效期的终止日期时间 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d ' 
+{ 
+"method": "thing.service.UpdateLockUserValidDateTime", 
+"async": true, 
+"deviceid": "iSurpass2019100001", 
+"nodeid":  2, 
+"params": { 
+"UserType": 3, 
+"UserLevel": 0, 
+"ValidBeginDateTime": "2019-04-10 00:00", 
+"ValidEndDateTime": "2019-04-30 23:59" 
+} 
+} 
+' 
+ 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"receipt": "lock-1554945755303" 
+} 
+ 
+ 
+ 
+ 
+4.2.3. 添加/修改密码/临时密码用户 
+ 
+*锁用户的数据存储依赖于 MongoDB。
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.AddPasswordUser", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserLevel": <UserLevel>, //1-管理员 2-普通用户 4-一次性临时密码(UserType 必须为 1) 
+"UserID": <UserID>,  //UserID 规则: 
+系统分配： 0 
+管理员： 1~9 
+普通用户： 10~230 
+一次性临时密码： 243~252 
+"UserPassword": "<UserPassword>", //密码 
+"ValidWeekDays": <SumWeekdayValue>, //有效星期累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>",  //有效星期的起止时间 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>", //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>", //有效期的终止日期时间 
+"UserName": "<UserName>"  //用户名 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"UserID": <UserID> //锁用户 ID 
+} 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.AddPasswordUser", 
+"deviceid": "iSurpass2018100000", 
+"nodeid":  2, 
+"params": 
+{ "UserLevel": 1, 
+"UserID": 0, 
+"UserPassword": "8888", 
+"UserName": "d" 
+} 
+} 
+' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"UserID": 5 
+} 
+} 
+ 
+4.2.4. 设置锁用户名称 
+ 
+*锁用户的数据存储依赖于 MongoDB。
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.SetUserName", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID>, //UserID 
+"UserName": "<UserName>"  //用户名 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.SetUserName", 
+"deviceid": "iSurpass2018100000", 
+"nodeid":  2, 
+"params": { 
+"UserID": 5, 
+"UserName": "admin" 
+} 
+ 
+} 
+' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+ 
+ 
+4.2.5. 添加卡 
+ 
+*锁用户的数据存储依赖于 MongoDB。 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.AddCard", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserName": "<UserName>", //用户名 
+"UserID": <UserID> //锁用户 ID: 1~230（未指定则由锁自动分配） 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"params": { 
+"UserType": <UserType>, //1-密码 2-指纹 3-MF 卡 4-身份证 
+"UserLevel": <UserLevel>, //1-管理员 2-普通用户 4-一次性临时密码(UserType 必须为 1) 
+"UserID": <UserID>,  //卡用户 ID 
+"UserPassword": "<UserPassword>" //卡数据 
+} 
+} 
+ 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.AddCard", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"params": { 
+"UserName": "cardx" 
+} 
+}' 
+//返回结果： 
+{ 
+"params": { 
+"UserID": 20, 
+"UserLevel": 2, 
+"UserPassword": "C7AF0BD6", 
+"UserType": 3 
+}, 
+"resultcode": 1 
+} 
+ 
+ 
+ 
+ 
+4.2.6. 添加指纹 
+ 
+*锁用户的数据存储依赖于 MongoDB。 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+ 
+请求参数： 
+{ 
+"method": "thing.service.AddFingerPrint", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserName": "<UserName>", //用户名 
+"UserID": <UserID> //锁用户 ID: 1~230（未指定则由锁自动分配） 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"params": { 
+"UserType": <UserType>, //1-密码 2-指纹 3-MF 卡 4-身份证 
+"UserLevel": <UserLevel>,  //1-管理员 2-普通用户 4-一次性临时密码(UserType 必须为 1) 
+"UserID": <UserID> //指纹用户 ID 
+} 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.AddFingerPrint", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"params": { 
+"UserName": "my fingerprint" 
+} 
+ 
+}' 
+//返回结果： 
+{ 
+"params": { 
+"UserID": 33, 
+"UserLevel": 2, 
+"UserType": 2 
+}, 
+"resultcode": 1 
+} 
+ 
+ 
+ 
+ 
+4.2.7. 添加/修改锁用户 
+ 
+*锁用户的数据存储依赖于 MongoDB。
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.AddUser", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserType": <UserType>, //1-密码 2-指纹 3-MF 卡 4-身份证 7-人脸 
+"UserLevel": <UserLevel>,  //1-管理员 2-普通用户 4-一次性临时密码(UserType 必须为 1) 
+"UserID": <UserID>, //UserID 规则: 
+系统分配： 0 
+管理员： 1~9 
+普通用户： 10~230 
+一次性临时密码： 243~252 
+"UserPassword": "<UserPassword>", //密码串或指纹数据串或卡数据 
+卡数据：MF 卡，4byte 值转换为十六进制串身
+份证卡，8byte 值转换为十六进制串 
+"FaceFileURL": "<URL path>"， //人脸照片文件的 URL path 
+"ValidWeekDays": <SumWeekdayValue>， //有效星期累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+ 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>"， //有效星期的起止时间 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>"， //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>"， //有效期的终止日期时间 
+"UserName": "<UserName>"  //用户名 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1,          //1-成功, 非 1-失败 
+"receipt": "<receipt>",     //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "",  //本地化错误信息(Accept-Language 相关) "data": 
+{ 
+"UserID": <UserID> //锁用户 ID 
+} 
+} 
+【注】 
+1） 当 async 参数为 true 时，resultcode 为 1 仅表示服务器接收了请求、不表示操作成功， 
+通常发异步请求前你的系统需先建立 websocket 来接收操作结果，参见接收异步请求的操作结
+果 
+2） NB-IoT 锁、WIFI 锁 async 参数值必须为 true，nodeid 参数值必须为 1 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.AddUser", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"params": { 
+"UserType": 1, 
+"UserLevel": 2, 
+"UserID": 0, 
+"UserPassword": "5678", 
+"ValidBeginDateTime": "2019-08-30 00:00", 
+"ValidEndDateTime": "2018-12-31 23:59", 
+"ValidWeekDays": 127, 
+ 
+"ValidWeekTime": "00:00~23:59", 
+"UserName": "u5678" 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"UserID": 175 
+} 
+} 
+ 
+ 
+ 
+ 
+ 
+ 
+4.2.8. 查询锁异步请求历史 
+ 
+*锁异步请求记录依赖于 MongoDB 存储。 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.QueryLockAsyncInvoke", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"Conditions": {"<attr>":"<value>"}, //属性:值, 查询条件可以指定多个(与的关系) 
+"SortBy": ["<attr>"], //排序属性，attr 升序，-attr 降序，排序可以指定多个 
+"PageSize": <pagesize>, //每页记录数 
+"Page": <page> //第几页 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+ 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"TotalCount": <TotalCount> //总记录数 
+"PageCount": <PageCount>  //总页数 
+"PageSize": <pagesize>, //每页记录数 
+"Page": <page>, //当前第几页 
+"PageList": [ //当前页的设备列表 
+{ 
+"_deviceid": "<deviceid>", //网关设备ID 
+"_nodeid": <nodeid>, //智能锁在网关设备上的节点 id 
+"_method": "<method name>", //异步请求方法名 
+"_params": { //异步请求参数 
+… 
+ 
+ 
+ 
+它值失败 
+ 
+ 
+ 
+ 
+] 
+} 
+}, 
+"_processresult": <resultcode>, //异步请求结果: 0-待下发, 1-成功, -9-取消, 其 
+ 
+ 
+"_receipt": "<receipt>", //异步请求的回执id 
+} 
+… 
+ 
+ 
+[示例 1]查询待下发的创建锁用户的异步请求 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'Content-Type: application/json' \ 
+-H 'Postman-Token: a4ebcb91-0832-4280-affe-49627626946a' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.QueryLockAsyncInvoke", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"params": { 
+"Conditions": {"_method":"thing.service.AddUser", "_processresult":0}, 
+"SortBy": ["_receipt"], 
+"PageSize": 10, 
+"Page": 1 
+} 
+} ' 
+ 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"TotalCount": 2, 
+"PageCount": 1, 
+"PageSize": 10, 
+"Page": 1, 
+"PageList": [ 
+{ 
+"_deviceid": "iSurpass2018100000", 
+"_method": "thing.service.AddUser", 
+"_nodeid": 2, 
+"_params": { 
+"UserID": 250, 
+"UserLevel": 4, 
+"UserName": "t4444", 
+"UserPassword": "4444", 
+"UserType": 1 
+}, 
+"_processresult": 0, 
+"_receipt": "lock-1567067828105" 
+}, 
+{ 
+"_deviceid": "iSurpass2018100000", 
+"_method": "thing.service.AddUser", 
+"_nodeid": 2, 
+"_params": { 
+"UserID": 4, 
+"UserLevel": 1, 
+"UserName": "admin", 
+"UserPassword": "111111", 
+"UserType": 1 
+}, 
+"_processresult": 0, 
+"_receipt": "lock-1567067842440" 
+} 
+] 
+} 
+} 
+ 
+[示例 2]查询操作失败的创建锁用户的异步请求 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'Content-Type: application/json' \ 
+-H 'Postman-Token: a4ebcb91-0832-4280-affe-49627626946a' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.QueryLockAsyncInvoke", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"params": { 
+"Conditions": { 
+"_method":"thing.service.AddUser", 
+"_processresult": {"$nin": [0,1]} 
+}, 
+"SortBy": ["-_receipt"], 
+"PageSize": 10, 
+"Page": 1 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"TotalCount": 1, 
+"PageCount": 1, 
+"PageSize": 10, 
+"Page": 1, 
+"PageList": [ 
+{ 
+"_deviceid": "iSurpass2018100000", 
+"_method": "thing.service.AddUser", 
+"_nodeid": 2, 
+"_params": { 
+"UserID": 55, 
+"UserLevel": 2, 
+"UserName": "card a", 
+"UserPassword": "AFAFAFAF", 
+"UserType": 3, 
+"ValidBeginDateTime": "2019-08-30 00:00", 
+"ValidEndDateTime": "2018-12-31 23:59", 
+"ValidWeekDays": 127, 
+"ValidWeekTime": "00:00~23:59" 
+}, 
+ 
+"_processresult": 4, 
+"_icode": "ucode_lock_8003_3", 
+"_processresult_cn": "Password already exists", 
+"_receipt": "lock-1567145449326" 
+} 
+] 
+} 
+} 
+ 
+ 
+ 
+ 
+4.2.9. 添加/修改蓝牙/二维码用户 
+ 
+*锁用户的数据存储依赖于 MongoDB。
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.AddBluetoothUser", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserLevel": <UserLevel>, //1-管理员 2-普通用户 
+"UserID": <UserID>,  //UserID 规则: 
+系统分配： 0 
+管理员： 1~9 
+普通用户： 10~230 
+"ValidWeekDays": <SumWeekdayValue>, //有效星期累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>",  //有效星期的起止时间 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>", //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>", //有效期的终止日期时间 
+"UserPassword": "<UserPassword>",  //蓝牙用户验证密码(系统侧) 
+"UserName": "<user name>", //用户名称 
+"Owner": "<owner account>" //owner 
+} 
+} 
+ 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"UserID": <UserID> //锁用户 ID 
+} 
+} 
+【注】 
+1）蓝牙锁/蓝牙+NB-IoT 锁, nodeid 参数值必须为 1 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.AddBluetoothUser", 
+"deviceid": "iRemote2005100006772", 
+"nodeid":  1, 
+"params": 
+{ "UserLevel": 1, 
+"UserID": 2, 
+"UserPassword": "222222", 
+"UserName": "bluetooth2", 
+"Owner": "123838100@qq.com" 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"UserID": 2 
+} 
+} 
+ 
+4.2.10. 修改蓝牙/二维码用户的有效日期时间 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.UpdateBluetoothUserValidDateTime", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID>, //蓝牙用户 ID 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>",  //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>" //有效期的终止日期时间 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1）蓝牙锁/蓝牙+NB-IoT 锁, nodeid 参数值必须为 1 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.UpdateBluetoothUserValidDateTime", 
+"deviceid": "iRemote2005100006772", 
+"nodeid": 1, 
+"params": { 
+"UserID": 2, 
+"ValidBeginDateTime": "2019-09-25 00:00", 
+ 
+"ValidEndDateTime": "2019-09-30 23:59" 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+4.2.11. 修改蓝牙/二维码用户的有效星期 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.UpdateBluetoothUserValidWeekTime", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID>, //蓝牙用户ID 
+"ValidWeekDays": <SumWeekdayValue>， //有效星期累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>" //有效星期的起止时间 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1）蓝牙锁/蓝牙+NB-IoT 锁, nodeid 参数值必须为 1 
+ 
+[示例] 
+curl -X POST \ 
+ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.UpdateBluetoothUserValidWeekTime", 
+"deviceid": "iRemote2005100006772", 
+"nodeid":  1, 
+"params":{ 
+"UserID": 2, 
+"ValidWeekDays": 96, 
+"ValidWeekTime": "00:00~23:59" 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+ 
+ 
+4.2.12. 删除蓝牙/二维码用户 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.DeleteBluetoothUser", "deviceid": 
+"<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID> //蓝牙用户ID 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+ 
+} 
+【注】 
+1）蓝牙锁/蓝牙+NB-IoT 锁, nodeid 参数值必须为 1 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.DeleteBluetoothUser", 
+"deviceid": "iRemote2005100006772", "nodeid": 
+1, 
+"params": { 
+"UserID": 2 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+ 
+ 
+ 
+ 
+ 
+4.2.13. 获取蓝牙/二维码用户钥匙 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.GetBluetoothKey", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID>, //蓝牙用户ID 
+"UserPassword": "<UserPassword>" //蓝牙用户验证密码 
+} 
+ 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"BluetoothUserKey": "<bluetooth user key>", //蓝牙钥匙，hex 串
+"BluetoothDataSecret": "<bluetooth data secret>", //蓝牙通讯加密密钥，hex 串 
+"UnixTimestamp": <unix timestamp>, //系统当前时间(unix 时间戳) 
+"SuperUserKey": "<bluetooth super user key>",  //超级用户蓝牙钥匙，hex 串 
+"SuperDataSecret": "<bluetooth super user data secret>", //超级用户蓝牙通讯加密密钥，hex 串 
+"BluetoothPassword": "<bluetooth password>" //蓝牙开锁密码，hex 串 
+} 
+} 
+【注】 
+1）蓝牙锁/蓝牙+NB-IoT 锁, nodeid 参数值必须为 1 
+2) BluetoothUserKey 将用于手机蓝牙开锁, BluetoothDataSecret 将用于手机与蓝牙锁通讯加密 
+3) BluetoothPassword 适用于蓝牙手机透传数据给蓝牙锁(手机与蓝牙锁之间通讯不做加密) 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.GetBluetoothKey", 
+"deviceid": "iRemote2005100009667", 
+"nodeid": 1, 
+"params": { 
+"UserID": 0, 
+"UserPassword": "123456" 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"BluetoothDataSecret": "114F10C9BC0A36813331C7490AE46360", 
+"BluetoothPassword": "F059CBD19307805A1E1CE6DBA7E4AAFA79CE30E9", 
+ 
+"BluetoothUserKey": 
+"1E06FB45430FFDE103322E5DE09691BC6F96FA88B2CFF547A70B138EA3025C30", 
+"SuperDataSecret": "114F10C9BC0A36813331C7490AE46360", 
+"SuperUserKey": 
+"5D9315DDF40E5D6EADE7979B840D9067CCFCB678AF846BFD8BB94A259B5DB1CA", 
+"UnixTimestamp": 1577776634 
+} 
+} 
+ 
+ 
+ 
+ 
+4.2.14. 更换蓝牙密钥 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.UpdateBluetoothSecrets", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID>, //(管理员)蓝牙用户ID 
+"UserPassword": "<UserPassword>",  //蓝牙用户验证密码 
+"BluetoothSecrets": "<bluetooth secret data>" //(锁生成)蓝牙密钥TEA 加密数据，hex 串 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"BluetoothUserKey": "<bluetooth user key>", //(管理员)新的蓝牙钥匙, 
+"BluetoothDataSecret": "<bluetooth data secret>", //新的蓝牙通讯加密密钥 
+"UnixTimestamp": <unix timestamp>,  //系统当前时间(unix 时间戳) 
+"SuperUserKey": "<bluetooth super user key>",   //超级用户蓝牙钥匙，hex 串 
+"SuperDataSecret": "<bluetooth super user data secret>" //超级用户蓝牙通讯加密密钥，hex 串 
+} 
+} 
+【注】 
+ 
+1）蓝牙锁/蓝牙+NB-IoT 锁, nodeid 参数值必须为 1 
+2) BluetoothUserKey 将用于请求蓝牙锁确认更换蓝牙密钥, BluetoothDataSecret 将用于手机与蓝
+牙锁通讯加密 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.UpdateBluetoothSecrets", 
+"deviceid": "iRemote2005100006772", 
+"nodeid": 1, 
+"params": { 
+"UserID": 2, 
+"UserPassword": "222222", 
+"BluetoothSecrets": 
+"B4676C9A7162EDBCF614826D5105A5EBD7AEAC201ECF3C03BE4E383560BB45D2A8E907EDAC38BAD45F 
+A14393D6C230F8" 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"BluetoothDataSecret": "5262F34559BD59C52E48A71835C959A4", 
+"BluetoothUserKey": 
+"337D9F7E84C3963DCD181DEC8201CF77BF2425D3410463C06E924167D89D7CE3", 
+"SuperDataSecret": "5262F34559BD59C52E48A71835C959A4", 
+"SuperUserKey": 
+"99E75C240D803C66C971460DFEF213F190D983E2711844560E41CA28D2AD70A7", 
+"UnixTimestamp": 1572316063, 
+"UserName": "bluetooth2" 
+} 
+} 
+ 
+4.2.15. 复位蓝牙密钥 
+ 
+方法：post 
+请求头(header)： 
+ 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.ResetBluetoothSecrets", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID>, //蓝牙用户ID(管理员) 
+"UserPassword": "<UserPassword>" //蓝牙用户验证密码 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+【注】 
+1）蓝牙锁/蓝牙+NB-IoT 锁, nodeid 参数值必须为 1 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Content-Type: application/json' \ 
+-H 'Authorization:Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.ResetBluetoothSecrets", 
+"deviceid": "iRemote2005100006772", 
+"nodeid": 1, 
+"params": { 
+"UserID": 2, 
+"UserPassword": "222222" 
+} 
+} ' 
+//返回结果： 
+{ 
+"resultcode": 1 
+} 
+【注】 
+ 
+蓝牙密钥恢复成 厂时的缺省值 
+ 
+ 
+ 
+4.2.16. 按  Owner 获取锁用户列表 
+ 
+*仅限于通过开放服务接口远程创建的锁用户（不包括在锁上手工添 加
+的锁用户）。 
+ 
+方法: post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.GetLockUserListByOwner", 
+"params": { 
+"Owner": "<owner>" //owner 
+"Conditions": {"<attr>":"<value>"}, //属性:值, 查询条件可以指定多个(与的关系) 
+"SortBy": ["<attr>"] //排序属性，attr 升序，-attr 降序，排序可以指定多个 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"LockUserList": [ 
+{ 
+"UserType": <UserType>, //1-密码 2-指纹 3-MF 卡 4-身份证 9-蓝牙 
+"UserLevel": <UserLevel>,  //1-管理员 2-普通用户 4-一次性临时密码(UserType 必须为 
+1) 
+"UserID": <UserID>, //UserID 规则: 
+管理员： 1~9 
+普通用户： 10~230 
+一次性临时密码： 243~252 
+"UserPassword": "<UserPassword>", //密码串或指纹数据串或卡数据 
+ 
+卡数据：MF 卡，4byte 值转换为十六进制串身
+份证卡，8byte 值转换为十六进制串 
+"ValidWeekDays": <SumWeekdayValue>,  //累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>",  //有效星期的起止时间 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>", //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>", //有效期的终止日期时间 
+"UserName": "<user name>",  //用户名称 
+"Owner": "<owner account>", //owner 用户 
+"Lock": { 
+"Name": "<value>", //扩展属性名: 属性值 
+… 
+"_deviceid": "<deviceid>", //内置的设备属性 
+"_isentity": <true/false>, //内置的设备属性 
+"_nodeid": <nodeid>, //内置的设备属性 
+"_nodetype": "<devicetype>", //内置的设备属性 
+"_nodeprotocoltype": "<nodeprotocoltype>", //内置的设备属性 
+"_islogic": <true/false>, //内置的设备属性 
+"_logicid": "<logicid>",  //内置的设备属性 
+"_logicnodetype": "<logicnodetype>",   //内置的设备属性 
+"_logicnodeprotocoltype": "<logicnodeprotocoltype>",  //内置的设备属性 
+"_isbluetoothlock": true,  //内置的设备属性 
+"_bluetooth_mac": "<bluetooth MAC>",  //内置的设备属性 
+"_bluetooth_name": "<bluetooth name>",  //内置的设备属性 
+"_properties": { //内置的设备属性 
+"Name": "<value>" //属性名: 属性值 
+… 
+} 
+} 
+} 
+… 
+] 
+} 
+} 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+ 
+"method": "thing.service.GetLockUserListByOwner", 
+"params": { 
+"Owner": "123838100@qq.com", 
+"Conditions": {"UserType": 9} 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"LockUserList": [ 
+{ 
+"Lock": { 
+"Name": "蓝牙锁iRemote2005100006772", 
+"_bluetooth_mac": "DC:2C:26:D2:79:1B", 
+"_bluetooth_name": "bt2005100006772", 
+"_deviceid": "iRemote2005100006772", 
+"_isbluetoothlock": true, 
+"_isentity": true, 
+"_islogic": true, 
+"_logicid": "iRemote2005100006772-1-0-", 
+"_logicnodetype": "lock", 
+"_nodeid": 1, 
+"_nodetype": "lock" 
+}, 
+"Owner": "123838100@qq.com", 
+"UserID": 2, 
+"UserLevel": 1, 
+"UserName": "bluetooth2", 
+"UserPassword": "222222", 
+"UserType": 9, 
+"_deviceid": "iRemote2005100006772", 
+"_nodeid": 1 
+} 
+] 
+} 
+} 
+ 
+ 
+ 
+ 
+4.2.17. 异步批量添加/修改锁用户 
+ 
+*锁用户的数据存储依赖于 MongoDB。 
+ 
+ 
+方法：post 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.AsyncBatchAddUsers", "deviceid": 
+"<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserList": [{ //锁用户数组 
+"UserType": <UserType>, //1-密码 2-指纹 3-MF 卡 4-身份证 
+"UserLevel": <UserLevel>,  //1-管理员 2-普通用户 4-一次性临时密码(UserType 必须为 1) 
+"UserID": <UserID>, //UserID 规则: 
+系统分配： 0 
+管理员： 1~9 
+普通用户： 10~230 
+一次性临时密码： 243~252 
+"UserPassword": "<UserPassword>", //密码串或指纹数据串或卡数据 
+卡数据：MF 卡，4byte 值转换为十六进制串身
+份证卡，8byte 值转换为十六进制串 
+"ValidWeekDays": <SumWeekdayValue>， //有效星期累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>"， //有效星期的起止时间 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>"， //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>"， //有效期的终止日期时间 
+"UserName": "<UserName>"  //用户名 
+}] 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1,          //1-成功, 非 1-失败 
+"receipt": "<receipt>",     //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": ""     //本地化错误信息(Accept-Language 相关) 
+} 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.AsyncBatchAddUsers", 
+"deviceid": "iSurpass2018000000", 
+"nodeid": 2, 
+"params": { 
+"UserList": [ 
+{ 
+"UserType": 1, 
+"UserLevel": 2, 
+"UserID": 0, 
+"UserPassword": "3333", 
+"ValidBeginDateTime": "2019-08-30 00:00", 
+"ValidEndDateTime": "2019-12-31 23:59", 
+"UserName": "3" 
+}, 
+{ 
+"UserType": 1, 
+"UserLevel": 2, 
+"UserID": 0, 
+"UserPassword": "4444", 
+"ValidBeginDateTime": "2019-08-30 00:00", 
+"ValidEndDateTime": "2019-12-31 23:59", 
+"UserName": "4" 
+} 
+] 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"receipt": "lock-1576551618563" 
+} 
+ 
+4.2.18. 异步批量删除锁用户 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.AsyncBatchDeleteUsers", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"Conditions": {"<attr>":"<value>"} //属性:值, 查询条件可以指定多个(与的关系) 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"receipt": "<receipt>", //异步调用的回执 id 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "" //本地化错误信息(Accept-Language 相关) 
+} 
+ 
+ 
+[示例]删除全部无限期的密码用户 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.AsyncBatchDeleteUsers", 
+"deviceid": "iSurpass2018000000", 
+"nodeid": 2, 
+"params": { 
+"Conditions": {"UserType": 1, "ValidBeginDateTime": {"$exists": false}} 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+ 
+"receipt": "lock-1576562047793" 
+} 
+ 
+ 
+ 
+ 
+4.2.19. 蓝牙加卡 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothAddCard", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid> //智能锁在网关设备上的节点id 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+ 
+ 
+ 
+ 
+} 
+"BluetoothMAC": "<bluetooth MAC>", 
+"BluetoothName": "<bluetooth name>", 
+"BluetoothAddCardCmd": "<data>" 
+//蓝牙MAC 地址 
+//蓝牙名称 
+//蓝牙指令数据，hex 串 
+}   
+ 
+ 
+ 
+ 
+4.2.20. 获取酒店锁开锁密码 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.GetHotelLockPassword", 
+ 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"StartDate": "<YYYY-MM-DD HH>", //开始日期时间(精确到小时) 
+"ValidHours": <valid hours> //有效时长(小时): 0~63，0 表示不限时(超级开锁密码) 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"Password": <password> //开锁密码(8 位数字) 
+} 
+} 
+【注】 
+NB-IoT 锁、WIFI 锁 nodeid 参数值必须为 1 
+当 ValidHours 参数值为 0 时，StartDate 参数值必须等于或大于上一次调用时的值 
+ 
+ 
+ 
+[示例] 
+curl -X POST \ 
+http://112.74.20.113:8888/app/lock \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-H 'cache-control: no-cache' \ 
+-d '{ 
+"method": "thing.service.GetHotelLockPassword", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"params": { 
+"StartDate": "2020-08-03 16", 
+"ValidHours": 24 
+} 
+}' 
+//返回结果： 
+{ 
+"data": { 
+"Password ": "60231937" 
+}, 
+"resultcode": 1 
+} 
+ 
+ 
+ 
+4.2.21. 蓝牙加密码用户 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothAddPassword", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserPassword": "<UserPassword>", //密码(4~6 位数字) 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>", //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>", //有效期的终止日期时间 
+"UserID": <UserID> //锁用户 ID: 1~230（未指定或 255 则由锁自动分配） 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"BluetoothMAC": "<bluetooth MAC>", //蓝牙MAC 地址 
+"BluetoothName": "<bluetooth name>", //蓝牙名称 
+"BluetoothAddCardCmd": "<data>" //蓝牙指令数据，hex 串 
+} 
+} 
+【注】 
+1）同一把锁同 1 秒内只能获取 1 次(同 1 秒内多次调用返回结果相同)； 
+若是纯蓝牙锁(或是 NB-IoT 网络不畅通的情形下)，为了让锁的系统时钟正确，建议 App 与锁蓝牙通讯时调
+用：蓝牙将服务器的系统时间同步到锁 
+2) 指定UserID(需openservice v2.8.0 及以上版本)时不能同时指定ValidBeginDateTime 和ValidEndDateTime， 
+有效期设定参见蓝牙设置锁用户的有效日期时间 
+ 
+4.2.22. 蓝牙将服务器的系统时间同步到锁 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothSyncTime", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid> //智能锁在网关设备上的节点id 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"BluetoothMAC": "<bluetooth MAC>", //蓝牙MAC 地址 
+"BluetoothName": "<bluetooth name>", //蓝牙名称 
+"BluetoothAddCardCmd": "<data>" //蓝牙指令数据，hex 串 
+} 
+} 
+【注】 
+同一把锁同 1 秒内只能获取 1 次(同 1 秒内多次调用返回结果相同)； 
+若是纯蓝牙锁(或是 NB-IoT 网络不畅通的情形下)，为了让锁的系统时钟正确，建议 App 与锁蓝牙通讯时调
+用：蓝牙将服务器的系统时间同步到锁 
+ 
+ 
+4.2.23. 添加蓝牙钥匙扣用户 
+ 
+*锁用户的数据存储依赖于 MongoDB。
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.AddBluetoothKeyRingUser", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserName": "<UserName>" //用户名 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"BluetoothMAC": "<bluetooth MAC>", //蓝牙MAC 地址 
+"BluetoothName": "<bluetooth name>", //蓝牙名称 
+"BluetoothAddCardCmd": "<data>", //(将下发给蓝牙钥匙扣的)蓝牙指令数据，hex 串 
+"UserID": <UserID> //锁用户 ID 
+} 
+} 
+【注】 
+同一把锁同 1 秒内只能获取 1 次(同 1 秒内多次调用返回结果相同)； 
+若是纯蓝牙锁(或是 NB-IoT 网络不畅通的情形下)，为了让锁的系统时钟正确，建议 App 与锁蓝牙通讯时调
+用：蓝牙将服务器的系统时间同步到锁 
+ 
+ 
+4.2.24. 蓝牙加卡用户 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothAddCardUser", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserPassword": "<UserPassword>",  //卡数据： 
+MF 卡，4byte 值转换为十六进制串身
+份证卡，8byte 值转换为十六进制串 
+"UserID": <UserID> //锁用户 ID: 1~230（未指定则由锁自动分配） 
+ 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"BluetoothMAC": "<bluetooth MAC>", //蓝牙MAC 地址 
+"BluetoothName": "<bluetooth name>", //蓝牙名称 
+"BluetoothAddCardCmd": "<data>" //蓝牙指令数据，hex 串 
+} 
+} 
+【注】 
+同一把锁同 1 秒内只能获取 1 次(同 1 秒内多次调用返回结果相同)； 
+若是纯蓝牙锁(或是 NB-IoT 网络不畅通的情形下)，为了让锁的系统时钟正确，建议 App 与锁蓝牙通讯时调
+用：蓝牙将服务器的系统时间同步到锁 
+ 
+ 
+4.2.25. 蓝牙设置锁用户的有效星期时间 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothUpdateUserValidWeekTime", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID>, //锁用户 ID 
+"ValidWeekDays": <SumWeekdayValue>， //有效星期累加值：如 5 表示星期天和星期二有效 
+1-星期天 2-星期一 4-星期二 8-星期三 
+16-星期四 32-星期五 64-星期六
+"ValidWeekTime": "<HH:MM~HH:MM>" //有效星期的起止时间 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+ 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"BluetoothMAC": "<bluetooth MAC>", //蓝牙MAC 地址 
+"BluetoothName": "<bluetooth name>", //蓝牙名称 
+"BluetoothAddCardCmd": "<data>" //蓝牙指令数据，hex 串 
+} 
+} 
+【注】 
+同一把锁同 1 秒内只能获取 1 次(同 1 秒内多次调用返回结果相同)； 
+若是纯蓝牙锁(或是 NB-IoT 网络不畅通的情形下)，为了让锁的系统时钟正确，建议 App 与锁蓝牙通讯时调
+用：蓝牙将服务器的系统时间同步到锁 
+ 
+ 
+4.2.26. 蓝牙设置锁用户的有效日期时间 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothUpdateUserValidDateTime", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID>, //锁用户 ID 
+"ValidBeginDateTime": "<YYYY-MM-DD HH:MM>",  //有效期的开始日期时间 
+"ValidEndDateTime": "<YYYY-MM-DD HH:MM>" //有效期的终止日期时间 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+ 
+ 
+ 
+ 
+} 
+"BluetoothMAC": "<bluetooth MAC>", 
+"BluetoothName": "<bluetooth name>", 
+"BluetoothAddCardCmd": "<data>" 
+//蓝牙MAC 地址 
+//蓝牙名称 
+//蓝牙指令数据，hex 串 
+}   
+ 
+【注】 
+同一把锁同 1 秒内只能获取 1 次(同 1 秒内多次调用返回结果相同)； 
+若是纯蓝牙锁(或是 NB-IoT 网络不畅通的情形下)，为了让锁的系统时钟正确，建议 App 与锁蓝牙通讯时调
+用：蓝牙将服务器的系统时间同步到锁 
+ 
+ 
+4.2.27. 蓝牙清除锁用户的有效日期时间 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothClearUserValidDateTime", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID> //锁用户 ID 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"BluetoothMAC": "<bluetooth MAC>", //蓝牙MAC 地址 
+"BluetoothName": "<bluetooth name>", //蓝牙名称 
+"BluetoothAddCardCmd": "<data>" //蓝牙指令数据，hex 串 
+} 
+} 
+【注】 
+同一把锁同 1 秒内只能获取 1 次(同 1 秒内多次调用返回结果相同)； 
+若是纯蓝牙锁(或是 NB-IoT 网络不畅通的情形下)，为了让锁的系统时钟正确，建议 App 与锁蓝牙通讯时调
+用：蓝牙将服务器的系统时间同步到锁 
+ 
+ 
+4.2.28. 蓝牙删除锁用户 
+ 
+方法：post 
+ 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothDeleteUser", "deviceid": 
+"<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID> //锁用户 ID 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"BluetoothMAC": "<bluetooth MAC>", //蓝牙MAC 地址 
+"BluetoothName": "<bluetooth name>", //蓝牙名称 
+"BluetoothAddCardCmd": "<data>" //蓝牙指令数据，hex 串 
+} 
+} 
+【注】 
+同一把锁同 1 秒内只能获取 1 次(同 1 秒内多次调用返回结果相同)； 
+若是纯蓝牙锁(或是 NB-IoT 网络不畅通的情形下)，为了让锁的系统时钟正确，建议 App 与锁蓝牙通讯时调
+用：蓝牙将服务器的系统时间同步到锁 
+ 
+ 
+4.2.29. 获取待下发的锁用户异步请求 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.GetTodoLockUserAsyncInvoke", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid> //智能锁在网关设备上的节点id 
+} 
+ 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": [ 
+{ 
+"_method": "<method>",  //method: 
+thing.service.AddUser 
+thing.service.UpdateUserValidDateTime 
+thing.service.UpdateUserValidWeekTime 
+thing.service.DeleteUser 
+"_params": { 
+… 
+} 
+}, 
+… 
+] 
+} 
+ 
+ 
+ 
+ 
+4.2.30. 蓝牙获取锁时间 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothGetTime", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid> //智能锁在网关设备上的节点id 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"BluetoothMAC": "<bluetooth MAC>", //蓝牙MAC 地址 
+ 
+"BluetoothName": "<bluetooth name>", //蓝牙名称 
+"BluetoothAddCardCmd": "<data>" //蓝牙指令数据，hex 串 
+} 
+} 
+ 
+ 
+4.2.31. 蓝牙获取锁用户列表 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothGetUserList", "deviceid": 
+"<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserType": <UserType> //锁用户类型：0-全部 1-密码 2-卡片 3-指纹 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+ 
+ 
+ 
+ 
+} 
+"BluetoothMAC": "<bluetooth MAC>", 
+"BluetoothName": "<bluetooth name>", 
+"BluetoothAddCardCmd": "<data>" 
+//蓝牙MAC 地址 
+//蓝牙名称 
+//蓝牙指令数据，hex 串 
+}   
+ 
+ 
+4.2.32. 蓝牙获取锁用户类型 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+ 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothGetUserType", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"UserID": <UserID> //锁用户 ID(1~230) 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+ 
+ 
+ 
+ 
+} 
+"BluetoothMAC": "<bluetooth MAC>", 
+"BluetoothName": "<bluetooth name>", 
+"BluetoothAddCardCmd": "<data>" 
+//蓝牙MAC 地址 
+//蓝牙名称 
+//蓝牙指令数据，hex 串 
+}   
+ 
+ 
+4.2.33. 蓝牙让锁进入Z-Wave  添加/删除设备状态 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothEnterAddDelDeviceStatus", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid> //智能锁在网关设备上的节点id 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"BluetoothMAC": "<bluetooth MAC>", //蓝牙MAC 地址 
+ 
+"BluetoothName": "<bluetooth name>", //蓝牙名称 
+"BluetoothAddCardCmd": "<data>" //蓝牙指令数据，hex 串 
+} 
+} 
+ 
+ 
+4.2.34. 蓝牙清除锁数据 
+ 
+方法：post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+{ 
+"method": "thing.service.BluetoothClearData", 
+"async": false, //false-同步模式(缺省)，true-异步模式 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //智能锁在网关设备上的节点id 
+"params": { 
+"Mode": <Mode> // 0-恢复 厂 1-清空密码 2-清空卡片 3-清空指纹 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+"resultcode": 1, //1-成功 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"BluetoothMAC": "<bluetooth MAC>", //蓝牙MAC 地址 
+"BluetoothName": "<bluetooth name>", //蓝牙名称 
+"BluetoothAddCardCmd": "<data>" //蓝牙指令数据，hex 串 
+} 
+} 
+ 
+ 
+4.3. 历史记录查询服务 
+ 
+url: http://<ip>:<port>/app 
+encoding: UTF-8 
+ 
+ 
+*生产环境使用 https 
+ 
+ 
+ 
+4.3.1. (Redis5)查询设备 report 
+ 
+*设备事件 report 存储在 Redis5 的情况下才可使用此接口查询
+方法: post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.QueryDeviceReport", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //节点 id 
+"params": { 
+"PageSize": <pagesize>, //最大 100 
+"MaxTimestamp": <timestamp>, //Unix 时间戳(毫秒) 
+"MinTimestamp": <timestamp>, //Unix 时间戳(毫秒) 
+"Type": "<event type>", //report 事件类型: notification、alarm、lockuser 
+"Report": "<event name>", //report 事件名称 
+"ExceptType": ["<event type>","<event type>"], 
+"ExceptReport": ["<event name>","<event name>"] 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"Count": <Count>, //返回记录数 
+"NextTimestamp":<timestamp>, //查询下一页时将此值传给 MaxTimestamp 参数 
+"List": [ 
+{ 
+"id": "<id>", 
+"ts": <timestamp>, // Unix 时间戳(秒) 
+ 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"deviceid": "<deviceid>", //网关设备 ID 
+"nodeid": <nodeid>, //智能锁在网关设备上的节点id 
+"report": "<event name>", //report 事件名称 
+"type": "<event type>", //report 事件类型 
+"params": { //report 事件参数 
+… 
+}, 
+"channelid": <channelid>, //通道 id 
+"sensortype": "<sensortype>",  //传感器类型 
+"logicnodeid": "<logicnodeid>", //逻辑节点 id 
+"report_cn": "<report event name>", //本地化事件名称(Accept-Language 相关) 
+"detail_cn": "<report event description>" //本地化事件描述(Accept-Language 相关) 
+} 
+… 
+] 
+} 
+ 
+ 
+[示例] 
+curl -X GET \ 
+http://dev.isurpass.com.cn:8888/app \ 
+-H 'Accept: */*' \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.QueryDeviceReport", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"params": { 
+"PageSize": 5, 
+"ExceptReport": ["thing.event.property.post"] 
+} 
+}' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"Count": 5, 
+"NextTimestamp": 1565481230912, 
+"List": [ 
+{ 
+"id": "1565482486619-0", 
+ 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"report": "thing.event.AddUser.post", 
+"type": "lockuser", 
+"params": { 
+"UserID": 33, 
+"UserLevel": 2, 
+"UserLevel_CN": "normal", 
+"UserName": "my fingerprint", 
+"UserType": 2, 
+"UserType_CN": "fingerprint" 
+}, 
+"logicnodeid": "iSurpass2018100000-2-0-", 
+"ts": 1566271471, 
+"dt": "2019-08-20 11:24:31", 
+"report_cn": "Add/Edit Lock User", 
+"detail_cn": "Add/edit fingerprint user my fingerprint" 
+}, 
+{ 
+"id": "1565482234612-0", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"report": "thing.event.AddUser.post", 
+"type": "lockuser", 
+"params": { 
+"UserID": 20, 
+"UserLevel": 2, 
+"UserLevel_CN": "normal", 
+"UserName": "cardx", 
+"UserPassword": "C7AF0BD6", 
+"UserType": 3, 
+"UserType_CN": "card" 
+}, 
+"logicnodeid": "iSurpass2018100000-2-0-", 
+"ts": 1566271219, 
+"dt": "2019-08-20 11:20:19", 
+"report_cn": "Add/Edit Lock User", 
+"detail_cn": "Add/edit card user cardx" 
+}, 
+{ 
+"id": "1565482198977-0", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"report": "thing.event.AddUser.post", 
+ 
+"type": "lockuser", 
+"params": { 
+"UserID": 20, 
+"UserLevel": 2, 
+"UserLevel_CN": "normal", 
+"UserPassword": "C7AF0BD6", 
+"UserType": 3, 
+"UserType_CN": "card" 
+}, 
+"logicnodeid": "iSurpass2018100000-2-0-", 
+"ts": 1566271183, 
+"dt": "2019-08-20 11:19:43", 
+"report_cn": "Add/Edit Lock User", 
+"detail_cn": "Add/edit card user 20" 
+}, 
+{ 
+"id": "1565481466642-0", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"report": "thing.event.ClearNodeData.post", 
+"type": "lockuser", 
+"params": { 
+"Mode": 0, 
+"Mode_CN": "all" 
+}, 
+"logicnodeid": "iSurpass2018100000-2-0-", 
+"ts": 1566270451, 
+"dt": "2019-08-20 11:07:31", 
+"report_cn": "Clear Lock Users", 
+"detail_cn": "Clear all users" 
+}, 
+{ 
+"id": "1565481230913-0", 
+"deviceid": "iSurpass2018100000", 
+"nodeid": 2, 
+"report": "thing.event.AddUser.post", 
+"type": "lockuser", 
+"params": { 
+"UserID": 20, 
+"UserLevel": 2, 
+"UserLevel_CN": "normal", 
+"UserName": "card a", 
+"UserPassword": "C7AF0BD6", 
+"UserType": 3, 
+ 
+"UserType_CN": "card" 
+}, 
+"logicnodeid": "iSurpass2018100000-2-0-", 
+"ts": 1566270215, 
+"dt": "2019-08-20 11:03:35", 
+"report_cn": "Add/Edit Lock User", 
+"detail_cn": "Add/edit card user card a" 
+} 
+] 
+} 
+} 
+ 
+ 
+ 
+ 
+ 
+4.3.2. (InfluxDB)查询设备 report 
+ 
+*设备事件 report 存储在 InfluxDB V2 的情况下才可使用此接口
+方法: post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.QueryDeviceReportFromTiDB", 
+"deviceid": "<deviceid>", //网关设备ID，可选参数 
+"nodeid":  <nodeid>, //节点 id，可选参数 
+"params": { 
+"PageSize": <pagesize>, //缺省值：10 
+"Page": <page>, //缺省值：1 
+"Start": "<start>", //缺省值：-1d(最近 1 天以内) 
+"Stop": "<stop>", //缺省值：now()(到目前为止) 
+"Types": [<event type>], //report 事件类型: notification、alarm、lockuser，可选参数 
+"Reports": [<event name>], //report 事件名称，可选参数 
+"ParamsConditions": {"<param field>":<params value>}  //report params，可选参数 
+} 
+} 
+ 
+响应结果(Content-Type: application/json): 
+{ 
+ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"Count": <Count>, //返回记录数 
+"List": [ 
+{ 
+"ts": <timestamp>, // Unix 时间戳(秒) 
+"dt": "<yyyy-mm-dd HH:MM:SS>", //日期时间 
+"deviceid": "<deviceid>", //网关设备 ID 
+"nodeid": <nodeid>, //智能锁在网关设备上的节点id 
+"report": "<event name>", //report 事件名称 
+"type": "<event type>", //report 事件类型 
+"params": { //report 事件参数 
+… 
+}, 
+"channelid": <channelid>, //通道 id 
+"sensortype": "<sensortype>",  //传感器类型 
+"logicnodeid": "<logicnodeid>", //逻辑节点 id 
+"report_cn": "<report event name>", //本地化事件名称(Accept-Language 相关) 
+"detail_cn": "<report event description>" //本地化事件描述(Accept-Language 相关) 
+} 
+… 
+] 
+} 
+ 
+ 
+[示例]查询最近 3 天指定锁用密码/卡片/身份证开锁历史记录(成功/失败) 
+curl -X GET \ 
+http://dev.isurpass.com.cn:8888/app \ 
+-H 'Accept: */*' \ 
+-H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBrZXkiOiJpU3VycGFzc0FwcCIsInRpbWVzdGFtcCI6IjEyMzQ1Nj 
+c4OTAifQ.KRLkB8N-3w-_tkUfUbHbZCBtZrHuOwKbmQeNK1w08_0' \ 
+-d '{ 
+"method": "thing.service.QueryDeviceReportFromTiDB", 
+"deviceid": "iRemote7005000000020", 
+"nodeid": 38, 
+"params": { 
+"PageSize": 3, 
+"Page": 1, 
+"Start": "-3d", 
+"Reports": ["thing.event.DoorOpenNotification.post","thing.event.FailToOpenLock.post"], 
+"ParamsConditions": {"Mode":[1,3,4]} 
+ 
+} 
+} 
+' 
+//返回结果： 
+{ 
+"resultcode": 1, 
+"data": { 
+"Count": 7, 
+"List": [ 
+{ 
+"deviceid": "iRemote7005000000020", 
+"nodeid": 38, 
+"report": "thing.event.DoorOpenNotification.post", 
+"type": "notification", 
+"RawData": 
+"1E090031004700012600460016800700B110010300150600000000000000130C1A1322006800045E049AE5 
+004F0001010056000100", 
+"params": { 
+"HappenedTime": "2019-12-26 19:34", 
+"Happened_ts": 1577388840, 
+"Mode": 1, 
+"Mode_CN": "password", 
+"UserID": 6, 
+"UserName": "user6" 
+}, 
+"logicnodeid": "iRemote7005000000020-38-0-", 
+"ts": 1577360101, 
+"dt": "2019-12-26 19:35:01", 
+"report_cn": "unlocked", 
+"detail_cn": "the user user6 opened the lock with password" 
+}, 
+{ 
+"deviceid": "iRemote7005000000020", 
+"nodeid": 38, 
+"report": "thing.event.FailToOpenLock.post", 
+"type": "notification", 
+"RawData": 
+"1E090031004700012600460016800700B210010400150000000000000000130C1A131D006800045E0499B5 
+004F0001010056000100", 
+"params": { 
+"HappenedTime": "2019-12-26 19:29", 
+"Happened_ts": 1577388540, 
+"InvalidType": 0, 
+"InvalidType_CN": "invalid user", 
+ 
+"Mode": 1, 
+"Mode_CN": "password" 
+}, 
+"logicnodeid": "iRemote7005000000020-38-0-", 
+"ts": 1577359797, 
+"dt": "2019-12-26 19:29:57", 
+"report_cn": "fail to open lock", 
+"detail_cn": "invalid user" 
+}, 
+{ 
+"deviceid": "iRemote7005000000020", 
+"nodeid": 38, 
+"report": "thing.event.DoorOpenNotification.post", 
+"type": "notification", 
+"RawData": 
+"1E090031004700012600460016800700B110010300150600000000000000130C1A131D006800045E0499A 
+A004F0001010056000100", 
+"params": { 
+"HappenedTime": "2019-12-26 19:29", 
+"Happened_ts": 1577388540, 
+"Mode": 1, 
+"Mode_CN": "password", 
+"UserID": 6 
+}, 
+"logicnodeid": "iRemote7005000000020-38-0-", 
+"ts": 1577359786, 
+"dt": "2019-12-26 19:29:46", 
+"report_cn": "unlocked", 
+"detail_cn": "the user 6 opened the lock with password" 
+} 
+] 
+} 
+} 
+ 
+ 
+ 
+ 
+4.3.3. 查询异步请求 
+ 
+*异步请求记录依赖于 MongoDB 存储。
+方法: post 
+ 
+ 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.QueryAsyncInvoke", 
+"deviceid": "<deviceid>", //网关设备ID 
+"nodeid":  <nodeid>, //设备在网关上的节点id 
+"params": { 
+"Conditions": {"<attr>":"<value>"}, //属性:值, 查询条件可以指定多个(与的关系) 
+"SortBy": ["<attr>"], //排序属性，attr 升序，-attr 降序，排序可以指定多个 
+"PageSize": <pagesize>, //每页记录数 
+"Page": <page> //第几页 
+} 
+ 
+ 
+} 
+ 
+响应结果(Content-Type: application/json): 
+ 
+{ 
+“resultcode”: 1, //1-成功, 非 1-失败 
+"errorinfo": "", //错误信息 
+"errorinfo_cn": "", //本地化错误信息(Accept-Language 相关) 
+"data": { 
+"TotalCount": <TotalCount> //总记录数 
+"PageCount": <PageCount>  //总页数 
+"PageSize": <pagesize>, //每页记录数 
+"Page": <page>, //当前第几页 
+"PageList": [ //当前页的设备列表 
+{ 
+"_deviceid": "<deviceid>", //网关设备ID 
+"_nodeid": <nodeid>, //智能锁在网关设备上的节点 id 
+"_method": "<method name>", //异步请求方法名 
+"_params": { //异步请求参数 
+… 
+ 
+ 
+ 
+它值失败 
+ 
+ 
+ 
+ 
+] 
+} 
+}, 
+"_processresult": <resultcode>, //异步请求结果: 0-待下发, 1-成功, -9-取消, 其 
+ 
+ 
+"_receipt": "<receipt>", //异步请求的回执id 
+} 
+… 
+ 
+ 
+ 
+ 
+ 
+4.3.4. (InfluxDB)查询远程请求日志 report 
+ 
+*远程请求日志存储在 InfluxDB V2 的情况下才可使用此接口
+方法: post 
+请求头(header)： 
+Accept-Language: <language> //en、zh-CN 
+Authorization: Bearer <JWT token> 
+请求参数： 
+ 
+{ 
+"method": "thing.service.QueryRemoteInvokeLogFromTiDB", 
+"deviceid": "<deviceid>", //网关设备ID，可选参数 
+"nodeid":  <nodeid>,  //节点 id，可选参数 
+"logicnodeid": "<logicnodeid>", //逻辑节点 id，可选参数 
+"params": { 
+"PageSize": <pagesize>, //缺省值：10 
+"Page": <pagesize>, //缺省值：1 
+"Start": "<start>", //缺省值：-1d(最近 1 天以内) 
+"Stop": "<stop>",  //缺省值：now()(到目前为止) 
+"By": "<by>", //远程请求方式：http/websocket 
+"Method": "<method>" //远程请求方法 
+} 
+} 
+ 
+ 
+ 
+ 
+A. 设备类型及其转换协议一览表 
+ 
+类型 nodetype 子类型 protocoltype 备注 
+锁 lock Z-Wave 锁 lock  
+NB-IoT 锁 nblock NB-IoT 设备 
+nblock_2k NB-IoT 设备 
+支持 2k 指纹 
+WIFI 锁 wifilock  
+wifilock2 新版 wifi 锁 
+指纹采集 
+器 
+fingerprintreader iSurpass 指纹采集 
+器 
+fingerprintreader  
+开关 switch Z-Wave 开关/ 插
+座/机械手臂/报警 
+器 
+switch  
+无源开关 switch iSurpass 无源开关 natural 需结合支持
+无源开关的
+Z-Wave 网关 
+使用 
+情景面板 scenepanel Z-Wave 情景面板 scenepanel  
+窗帘 curtain Z-Wave 窗帘电机 multilevelswitch  
+调光灯 dimmer Z-Wave 调光灯 multilevelswitch  
+门磁窗磁 doorwindowsensor Z-Wave 门窗磁 doorwindowsensor  
+NB-IoT 门窗磁 nbdoorwindowsensor NB-IoT 设备 
+ NB-IoT 门窗磁 V2 nbdoorsensor2 
+移动感应 motion Z-Wave 移动感应 motion  
+空调 aircondition Z-Wave 空调 aircondition  
+温度计 temperaturesensor Z-Wave 温度计 temperaturesensor  
+亮度计 luminancesensor Z-Wave 亮度计 luminancesensor  
+湿度计 humiditysensor Z-Wave 湿度计 humiditysensor  
+烟感 smokesensor Z-Wave 烟感 smokesensor  
+漏水感应 watersensor Z-Wave 漏水感应 watersensor  
+红外控制 irremote Z-Wave 红外控制 irremote  
+电表 electricmeter Z-Wave 电表 electricmeter  
+OneNet 电表 electricmeter NB-IoT 设备 
+水表 watermeter Z-Wave 水表 watermeter  
+OneNet 水表 watermeter NB-IoT 设备 
+人脸识别 facerecognition    
+音视频 av 音丽士 levoice 需结合 TCP 
+网关使用 
+中控主机 pcmedia iSurpass 中控主机 pcmedia 需结合 TCP 
+ 
+ 
+    网关使用 
+净水器 waterfilter 艾欧净水器 nbwaterfilter NB-IoT 设备 
+洗衣机 washer 创维滚筒洗衣机 nbwasher NB-IoT 设备 
+创维波轮洗衣机 nbwasher_impeller NB-IoT 设备 
+创维波轮洗衣机 B nbwasher_impeller_b NB-IoT 设备 
+洗鞋机 shoewasher 创维洗鞋机 nbshoewasher NB-IoT 设备 
+干衣机 dryer 创维干衣机 nbdryer NB-IoT 设备 
+SOS sos iSurpass SOS nbsos NB-IoT 设备 
+Z-Wave SOS sos  
+串口设备 serial Z-Wave 串口设备 serial  
+耳标 eartag  bteartag 蓝牙设备 
+燃气感应 gassensor Z-Wave 燃气感应 gassensor  
+路灯 roadlamp 路灯 nbroadlamp NB-IoT 设备 
+医药箱 medicalbox  medicalbox 4G 设备 
+门禁 lock 门禁 entrance 需结合 TCP 
+网关使用 lock 二维码 entranceb 
+电梯 lift 电梯 lift  
+ 
+【注】 
+新版门磁(V2)需要 openservice-telecom v3.2.5 以上版本、openservice v2.2.0 以上版本(或 js 目录下有 
+nbdoorsensor2.js 文件) 

@@ -11,7 +11,6 @@
 - [快速开始](#快速开始)
 - [版本管理](#版本管理)
 - [依赖管理](#依赖管理)
-- [构建与部署](#构建与部署)
 - [开发规范](#开发规范)
 
 ---
@@ -169,42 +168,6 @@ public class MyApplication {
 ```
 
 新增三方依赖时，必须先在 `dependencies/pom.xml` 的 `<dependencyManagement>` 中注册版本，再在业务模块中引用。
-
----
-
-## 构建与部署
-
-### 本地构建
-
-```bash
-# 完整构建（跳过测试）
-mvn clean install -DskipTests
-
-# 仅编译
-mvn clean compile
-
-# 运行测试
-mvn test
-```
-
-### 私有仓库
-
-框架默认使用阿里云公共镜像加速依赖下载。若需接入公司私服，在 Maven `settings.xml` 中配置，勿直接修改子模块 POM。
-
-```xml
-<mirror>
-    <id>company-nexus</id>
-    <mirrorOf>*</mirrorOf>
-    <url>https://nexus.example.com/repository/maven-public/</url>
-</mirror>
-```
-
-### 发布流程
-
-1. 修改根 `pom.xml` 中的 `kantboot.version`
-2. 执行 `mvn clean install` 验证全量编译通过
-3. 更新 CHANGELOG，打 Git Tag
-4. 发布制品：`mvn deploy`
 
 ---
 

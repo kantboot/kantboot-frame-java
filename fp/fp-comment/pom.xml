@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>fp-comment</artifactId>
+    <name>fp-comment</name>
 
     <dependencies>
         <dependency>

@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>engine-database</artifactId>
+    <name>engine-database</name>
 
     <dependencies>
         <dependency>

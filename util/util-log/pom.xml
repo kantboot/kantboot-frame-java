@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-log</artifactId>
+    <name>util-log</name>
 
     <dependencies>
         <dependency>

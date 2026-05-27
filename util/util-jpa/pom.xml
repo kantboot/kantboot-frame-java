@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-jpa</artifactId>
+    <name>util-jpa</name>
     <description>JPA 工具模块，提供 JPA 相关功能</description>
 
     <dependencies>

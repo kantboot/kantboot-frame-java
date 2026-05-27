@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>tool-ip</artifactId>
+    <name>tool-ip</name>
 
     <dependencies>
         <dependency>

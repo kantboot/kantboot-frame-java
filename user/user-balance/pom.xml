@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>user-balance</artifactId>
+    <name>user-balance</name>
 
     <dependencies>
         <dependency>

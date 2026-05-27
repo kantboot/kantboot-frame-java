@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>gateway-server</artifactId>
+    <name>gateway-server</name>
 
     <dependencies>
         <dependency>

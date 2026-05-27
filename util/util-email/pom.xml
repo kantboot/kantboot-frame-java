@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-email</artifactId>
+    <name>util-email</name>
 
     <dependencies>
         <dependency>

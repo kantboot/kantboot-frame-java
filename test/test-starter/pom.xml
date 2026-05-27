@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>test-starter</artifactId>
+    <name>test-starter</name>
 
     <dependencies>
         <!-- pgsql -->

@@ -5,7 +5,6 @@ import com.kantboot.init.KantbootInit;
 import com.kantboot.system.setting.domain.entity.SysSetting;
 import com.kantboot.system.setting.domain.entity.SysSettingGroup;
 import com.kantboot.system.setting.properties.SystemSettingProperties;
-import com.kantboot.system.setting.repository.SysSettingRepository;
 import com.kantboot.system.setting.service.ISysSettingGroupService;
 import com.kantboot.system.setting.service.ISysSettingService;
 import com.kantboot.util.setting.annotation.Setting;

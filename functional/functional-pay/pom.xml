@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>functional-pay</artifactId>
+    <name>functional-pay</name>
 
     <dependencies>
         <dependency>

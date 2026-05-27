@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>tool-all</artifactId>
+    <name>tool-all</name>
 
     <dependencies>
         <dependency>

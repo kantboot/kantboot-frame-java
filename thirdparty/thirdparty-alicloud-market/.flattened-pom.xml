@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.kantboot</groupId>
+    <artifactId>thirdparty</artifactId>
+    <version>0.0.1</version>
+  </parent>
+  <groupId>com.kantboot</groupId>
+  <artifactId>thirdparty-alicloud-market</artifactId>
+  <version>0.0.1</version>
+  <name>thirdparty-alicloud-market</name>
+  <description>关于“阿里云市场”的第三方集成</description>
+  <url>https://github.com/kantboot/kantboot-frame-java/dependencies/thirdparty/thirdparty-alicloud-market</url>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>kantboot</id>
+      <name>Fang Mofang</name>
+      <email>adduserbythis@gmail.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:https://github.com/kantboot/kantboot-frame-java.git/dependencies/thirdparty/thirdparty-alicloud-market</connection>
+    <developerConnection>scm:git:https://github.com/kantboot/kantboot-frame-java.git/dependencies/thirdparty/thirdparty-alicloud-market</developerConnection>
+    <url>https://github.com/kantboot/kantboot-frame-java/dependencies/thirdparty/thirdparty-alicloud-market</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>com.kantboot</groupId>
+      <artifactId>util-all</artifactId>
+      <version>0.0.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.kantboot</groupId>
+      <artifactId>system-all</artifactId>
+      <version>0.0.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.2.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore</artifactId>
+      <version>4.2.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>

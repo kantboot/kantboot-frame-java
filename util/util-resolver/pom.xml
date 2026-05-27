@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-resolver</artifactId>
+    <name>util-resolver</name>
 
     <dependencies>
         <dependency>

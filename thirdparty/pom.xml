@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>thirdparty</artifactId>
+    <name>thirdparty</name>
     <packaging>pom</packaging>
     <modules>
         <module>thirdparty-juhe</module>

@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>dependencies</artifactId>
+    <name>dependencies</name>
     <packaging>pom</packaging>
 
     <properties>

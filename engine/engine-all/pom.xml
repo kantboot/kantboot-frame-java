@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>engine-all</artifactId>
+    <name>engine-all</name>
 
     <dependencies>
         <dependency>

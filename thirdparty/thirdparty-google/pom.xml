@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>thirdparty-google</artifactId>
+    <name>thirdparty-google</name>
 
     <dependencies>
         <dependency>

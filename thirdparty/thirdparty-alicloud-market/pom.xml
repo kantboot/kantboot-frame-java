@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>thirdparty-alicloud-market</artifactId>
+    <name>thirdparty-alicloud-market</name>
     <description>关于“阿里云市场”的第三方集成</description>
 
     <dependencies>

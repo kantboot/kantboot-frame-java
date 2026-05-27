@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>in-project</artifactId>
+    <name>in-project</name>
 
     <dependencies>
         <dependency>

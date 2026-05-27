@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>system</artifactId>
+    <name>system</name>
     <packaging>pom</packaging>
 
     <modules>

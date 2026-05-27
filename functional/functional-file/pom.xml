@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>functional-file</artifactId>
+    <name>functional-file</name>
 
     <dependencies>
         <dependency>
@@ -26,6 +27,11 @@
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>test-application</artifactId>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
 

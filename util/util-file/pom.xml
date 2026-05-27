@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-file</artifactId>
+    <name>util-file</name>
 
     <dependencies>
         <dependency>

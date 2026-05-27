@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>user-interrelation</artifactId>
+    <name>user-interrelation</name>
 
     <dependencies>
         <dependency>

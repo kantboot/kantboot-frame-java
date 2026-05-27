@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-http</artifactId>
+    <name>util-http</name>
 
     <dependencies>
         <dependency>

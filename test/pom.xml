@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>test</artifactId>
+    <name>test</name>
     <packaging>pom</packaging>
     <modules>
         <module>test-application</module>

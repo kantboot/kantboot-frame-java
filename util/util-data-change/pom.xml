@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-data-change</artifactId>
+    <name>util-data-change</name>
     <description>数据变化工具模块，提供数据变化记录功能</description>
 
     <dependencies>

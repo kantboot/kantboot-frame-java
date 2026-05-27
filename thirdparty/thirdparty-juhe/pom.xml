@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>thirdparty-juhe</artifactId>
+    <name>thirdparty-juhe</name>
 
     <dependencies>
         <dependency>

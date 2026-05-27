@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>starter-parent</artifactId>
+    <name>starter-parent</name>
     <packaging>pom</packaging>
     <modules>
         <module>starter-standalone</module>

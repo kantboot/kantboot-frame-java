@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>tool</artifactId>
+    <name>tool</name>
     <packaging>pom</packaging>
     <modules>
         <module>tool-area</module>

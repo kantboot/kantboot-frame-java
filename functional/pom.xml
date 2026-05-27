@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>functional</artifactId>
+    <name>functional</name>
     <packaging>pom</packaging>
     <modules>
         <module>functional-icon</module>

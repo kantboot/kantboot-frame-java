@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>functional-translate</artifactId>
+    <name>functional-translate</name>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

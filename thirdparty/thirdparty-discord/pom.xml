@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>thirdparty-discord</artifactId>
+    <name>thirdparty-discord</name>
 
     <dependencies>
         <dependency>

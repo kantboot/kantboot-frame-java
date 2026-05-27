@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>fp</artifactId>
+    <name>fp</name>
     <packaging>pom</packaging>
     <modules>
         <module>fp-carousel</module>

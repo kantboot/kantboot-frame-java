@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-exception</artifactId>
+    <name>util-exception</name>
 
     <dependencies>
         <dependency>

@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>system-all</artifactId>
+    <name>system-all</name>
 
     <dependencies>
         <dependency>

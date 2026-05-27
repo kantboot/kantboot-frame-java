@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>tool-area</artifactId>
+    <name>tool-area</name>
 
     <dependencies>
         <dependency>

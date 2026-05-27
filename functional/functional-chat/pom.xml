@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>functional-chat</artifactId>
+    <name>functional-chat</name>
 
     <dependencies>
         <dependency>

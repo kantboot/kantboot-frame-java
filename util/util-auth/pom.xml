@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-auth</artifactId>
+    <name>util-auth</name>
     <description>权限功能模块</description>
 
 </project>

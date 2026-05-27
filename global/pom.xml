@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>global</artifactId>
+    <name>global</name>
     <packaging>pom</packaging>
     <modules>
         <module>global-standalone</module>

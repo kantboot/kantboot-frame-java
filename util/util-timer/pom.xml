@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-timer</artifactId>
+    <name>util-timer</name>
     <description>定时器工具类模块，提供基于注解的定时任务管理机制</description>
 
     <dependencies>

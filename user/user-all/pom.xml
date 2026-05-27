@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>user-all</artifactId>
+    <name>user-all</name>
 
     <dependencies>
         <dependency>

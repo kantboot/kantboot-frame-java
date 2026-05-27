@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>engine-jvm</artifactId>
+    <name>engine-jvm</name>
 
     <dependencies>
         <dependency>

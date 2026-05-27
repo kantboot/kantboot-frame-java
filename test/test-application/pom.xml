@@ -11,6 +11,11 @@
     </parent>
 
     <artifactId>test-application</artifactId>
+    <name>test-application</name>
+
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
 
     <dependencies>
         <dependency>

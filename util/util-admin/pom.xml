@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-admin</artifactId>
+    <name>util-admin</name>
 
     <dependencies>
         <dependency>

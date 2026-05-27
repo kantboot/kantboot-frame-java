@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>official-plugin-tool-area</artifactId>
+    <name>official-plugin-tool-area</name>
 
     <dependencies>
         <dependency>

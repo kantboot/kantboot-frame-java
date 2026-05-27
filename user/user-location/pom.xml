@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>user-location</artifactId>
+    <name>user-location</name>
 
     <dependencies>
         <dependency>

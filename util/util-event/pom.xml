@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-event</artifactId>
+    <name>util-event</name>
     <description>事件工具类模块，提供基于注解的事件监听与触发机制</description>
 
     <dependencies>

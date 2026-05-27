@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>system-setting</artifactId>
+    <name>system-setting</name>
 
     <dependencies>
         <dependency>
@@ -23,9 +24,8 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.kantboot</groupId>
-            <artifactId>test-application</artifactId>
-            <version>${revision}</version>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
         </dependency>
     </dependencies>
 

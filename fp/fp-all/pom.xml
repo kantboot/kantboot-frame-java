@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>fp-all</artifactId>
+    <name>fp-all</name>
 
     <dependencies>
         <dependency>

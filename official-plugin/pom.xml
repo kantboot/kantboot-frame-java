@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>official-plugin</artifactId>
+    <name>official-plugin</name>
     <packaging>pom</packaging>
     <modules>
         <module>official-plugin-tool-area</module>

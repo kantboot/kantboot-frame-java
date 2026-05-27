@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>starter-standalone-minimize</artifactId>
+    <name>starter-standalone-minimize</name>
 
     <dependencies>
         <dependency>

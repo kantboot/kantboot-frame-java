@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>starter-standalone</artifactId>
+    <name>starter-standalone</name>
 
     <dependencies>
         <dependency>

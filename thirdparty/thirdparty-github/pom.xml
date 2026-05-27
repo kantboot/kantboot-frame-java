@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>thirdparty-github</artifactId>
+    <name>thirdparty-github</name>
 
     <dependencies>
         <dependency>

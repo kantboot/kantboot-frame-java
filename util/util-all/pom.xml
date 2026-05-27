@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-all</artifactId>
+    <name>util-all</name>
     <description>聚合多个实用工具模块，方便在项目中统一引入</description>
 
     <dependencies>

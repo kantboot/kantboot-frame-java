@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.kantboot</groupId>
+    <artifactId>util</artifactId>
+    <version>0.0.1</version>
+  </parent>
+  <groupId>com.kantboot</groupId>
+  <artifactId>util-auth</artifactId>
+  <version>0.0.1</version>
+  <name>util-auth</name>
+  <description>权限功能模块</description>
+  <url>https://github.com/kantboot/kantboot-frame-java/dependencies/util/util-auth</url>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>kantboot</id>
+      <name>Fang Mofang</name>
+      <email>adduserbythis@gmail.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:https://github.com/kantboot/kantboot-frame-java.git/dependencies/util/util-auth</connection>
+    <developerConnection>scm:git:https://github.com/kantboot/kantboot-frame-java.git/dependencies/util/util-auth</developerConnection>
+    <url>https://github.com/kantboot/kantboot-frame-java/dependencies/util/util-auth</url>
+  </scm>
+</project>

@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>thirdparty-wechat-miniprogram</artifactId>
+    <name>thirdparty-wechat-miniprogram</name>
 
     <dependencies>
         <dependency>

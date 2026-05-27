@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-i18n</artifactId>
+    <name>util-i18n</name>
     <description>国际化工具模块，提供多语言支持和国际化功能</description>
 
 

@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>system-auth</artifactId>
+    <name>system-auth</name>
 
     <dependencies>
         <dependency>

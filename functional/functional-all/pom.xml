@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>functional-all</artifactId>
+    <name>functional-all</name>
 
     <dependencies>
         <dependency>

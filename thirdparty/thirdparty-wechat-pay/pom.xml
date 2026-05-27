@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>thirdparty-wechat-pay</artifactId>
+    <name>thirdparty-wechat-pay</name>
 
     <dependencies>
         <dependency>

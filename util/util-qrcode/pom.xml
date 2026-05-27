@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>util-qrcode</artifactId>
+    <name>util-qrcode</name>
 
     <dependencies>
         <!-- zxing -->

@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>user</artifactId>
+    <name>user</name>
     <packaging>pom</packaging>
     <modules>
         <module>user-account</module>

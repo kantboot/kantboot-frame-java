@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>official-plugin-tool-ip</artifactId>
+    <name>official-plugin-tool-ip</name>
 
     <dependencies>
         <dependency>

@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>engine</artifactId>
+    <name>engine</name>
     <packaging>pom</packaging>
     <modules>
         <module>engine-computer</module>

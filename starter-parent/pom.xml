@@ -29,6 +29,12 @@
 
             <dependency>
                 <groupId>com.kantboot</groupId>
+                <artifactId>util-auth</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
                 <artifactId>util-base-control</artifactId>
                 <version>${revision}</version>
             </dependency>
@@ -228,7 +234,25 @@
 
             <dependency>
                 <groupId>com.kantboot</groupId>
+                <artifactId>functional-chat</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
+                <artifactId>functional-email</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
                 <artifactId>functional-pay</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
+                <artifactId>functional-translate</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -247,6 +271,12 @@
             <dependency>
                 <groupId>com.kantboot</groupId>
                 <artifactId>official-plugin-user-location</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
+                <artifactId>official-plugin-functional-translate</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -277,7 +307,37 @@
 
             <dependency>
                 <groupId>com.kantboot</groupId>
+                <artifactId>fp-comment</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
+                <artifactId>fp-community</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
                 <artifactId>fp-all</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
+                <artifactId>gateway-client</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
+                <artifactId>gateway-server</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
+                <artifactId>global-standalone</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -377,13 +437,31 @@
 
             <dependency>
                 <groupId>com.kantboot</groupId>
+                <artifactId>thirdparty-wechat-pay</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
                 <artifactId>thirdparty-all</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.kantboot</groupId>
+                <artifactId>in-project</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
                 <artifactId>starter-standalone</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
+                <artifactId>starter-standalone-minimize</artifactId>
                 <version>${revision}</version>
             </dependency>
 

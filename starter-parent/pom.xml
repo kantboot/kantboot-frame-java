@@ -455,6 +455,18 @@
 
             <dependency>
                 <groupId>com.kantboot</groupId>
+                <artifactId>ai-chat</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
+                <artifactId>ai-all</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
                 <artifactId>starter-standalone</artifactId>
                 <version>${revision}</version>
             </dependency>

@@ -41,16 +41,24 @@ public class AiChatProxyController {
     @Resource
     private HttpRequestHeaderUtil httpRequestHeaderUtil;
 
+    private static final String ROLE_ID_PREFIX = "role-id-";
+
     @AuthInit(name = "AI透传", description = "透传请求到AI，不存储记录", sourceLanguageCode = "zh_CN", allPass = true)
-    @PostMapping("/{roleId}/chat/completions")
+    @PostMapping("/{roleIdentifier}/chat/completions")
     public ResponseEntity<StreamingResponseBody> proxy(
-            @PathVariable Long roleId,
+            @PathVariable String roleIdentifier,
             @RequestBody String requestBodyStr
     ) {
         JSONObject requestBody = JSON.parseObject(requestBodyStr);
 
-        AiChatRole role = roleRepository.findById(roleId)
-                .orElseThrow(() -> AiChatException.ROLE_NOT_EXIST);
+        AiChatRole role;
+        if (roleIdentifier.startsWith(ROLE_ID_PREFIX)) {
+            Long roleId = Long.parseLong(roleIdentifier.substring(ROLE_ID_PREFIX.length()));
+            role = roleRepository.findById(roleId).orElseThrow(() -> AiChatException.ROLE_NOT_EXIST);
+        } else {
+            role = roleRepository.findByCode(roleIdentifier).orElseThrow(() -> AiChatException.ROLE_NOT_EXIST);
+        }
+        Long roleId = role.getId();
 
         Long modelId = requestBody.getLong("modelId");
         if (modelId == null) {

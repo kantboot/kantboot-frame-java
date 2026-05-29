@@ -26,10 +26,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication(scanBasePackages = {"com.kantboot"},exclude = {GsonAutoConfiguration.class, CacheAutoConfiguration.class})
 @KantbootScan("com.kantboot")
 @EnableRedisRepositories(basePackages = {"com.kantboot"})
-public class KantbootStarterStandaloneApplication {
+public class KantbootStarterStandaloneMinimizeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(KantbootStarterStandaloneApplication.class, args);
+        SpringApplication.run(KantbootStarterStandaloneMinimizeApplication.class, args);
     }
 
 }

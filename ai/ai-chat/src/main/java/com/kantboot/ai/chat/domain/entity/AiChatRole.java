@@ -19,6 +19,9 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 public class AiChatRole extends BaseEntity implements Serializable {
 
+    @Column(name = "code", length = 64, unique = true)
+    private String code;
+
     @Column(name = "type_id")
     private Long typeId;
 

@@ -263,9 +263,10 @@ public class EngineComputerProcessServiceImpl implements IEngineComputerProcessS
     private EngineComputerProcess convertWithCpu(OSProcess p) {
         EngineComputerProcess process = convert(p);
 
-        // 采样计算进程 CPU 使用率
-        long[] prevKernelTicks = p.getKernelTicks();
-        long[] prevUserTicks = p.getUserTicks();
+        // OSHI 6.x 的 getProcessCpuLoadBetweenTicks 需要传入"采样前的进程快照"，
+        // 而不是直接传 tick 数组。因此先保存当前进程对象作为快照，
+        // sleep 后再调用 updateAttributes() 更新当前对象，最后传入快照计算差值。
+        OSProcess snapshot = p;
         try {
             Thread.sleep(CPU_SAMPLE_INTERVAL_MS);
         } catch (InterruptedException e) {
@@ -275,10 +276,8 @@ public class EngineComputerProcessServiceImpl implements IEngineComputerProcessS
             return process;
         }
 
-        // OSHI 3.x 通过 getProcessCpuLoadBetweenTicks 计算
-        // 注意：需要先更新进程信息（updateAttributes）才能获取新的 tick 值
         p.updateAttributes();
-        double cpuUsage = p.getProcessCpuLoadBetweenTicks(prevKernelTicks, prevUserTicks);
+        double cpuUsage = p.getProcessCpuLoadBetweenTicks(snapshot);
         if (cpuUsage < 0) {
             log.warn("进程 {} CPU 采样返回无效值: {}", p.getProcessID(), cpuUsage);
             process.setCpuUsage(-1.0);

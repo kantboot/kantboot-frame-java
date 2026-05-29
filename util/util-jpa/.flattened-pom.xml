@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.kantboot</groupId>
     <artifactId>util</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4-SNAPSHOT</version>
   </parent>
   <groupId>com.kantboot</groupId>
   <artifactId>util-jpa</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>util-jpa</name>
   <description>JPA 工具模块，提供 JPA 相关功能</description>
   <url>https://github.com/kantboot/kantboot-frame-java/dependencies/util/util-jpa</url>
@@ -7773,7 +7773,7 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-i18n</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

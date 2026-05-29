@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.kantboot</groupId>
     <artifactId>thirdparty</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4-SNAPSHOT</version>
   </parent>
   <groupId>com.kantboot</groupId>
   <artifactId>thirdparty-all</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>thirdparty-all</name>
   <description>A modular Java backend framework based on Spring Boot 3</description>
   <url>https://github.com/kantboot/kantboot-frame-java/dependencies/thirdparty/thirdparty-all</url>
@@ -7737,55 +7737,55 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>thirdparty-alicloud-market</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>thirdparty-baidu-translate</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>thirdparty-discord</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>thirdparty-github</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>thirdparty-google</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>thirdparty-juhe</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>thirdparty-wechat</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>thirdparty-wechat-miniprogram</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>thirdparty-wechat-pay</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

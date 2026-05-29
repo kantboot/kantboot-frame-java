@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.kantboot</groupId>
     <artifactId>parent</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4-SNAPSHOT</version>
   </parent>
   <groupId>com.kantboot</groupId>
   <artifactId>dependencies</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>dependencies</name>
   <description>A modular Java backend framework based on Spring Boot 3</description>

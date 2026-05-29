@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.kantboot</groupId>
     <artifactId>util</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4-SNAPSHOT</version>
   </parent>
   <groupId>com.kantboot</groupId>
   <artifactId>util-timer</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>util-timer</name>
   <description>定时器工具类模块，提供基于注解的定时任务管理机制</description>
   <url>https://github.com/kantboot/kantboot-frame-java/dependencies/util/util-timer</url>
@@ -7785,31 +7785,31 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-scan</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-rest</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-auth</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-exception</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-log</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

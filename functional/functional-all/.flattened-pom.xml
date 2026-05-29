@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.kantboot</groupId>
     <artifactId>functional</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4-SNAPSHOT</version>
   </parent>
   <groupId>com.kantboot</groupId>
   <artifactId>functional-all</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>functional-all</name>
   <description>A modular Java backend framework based on Spring Boot 3</description>
   <url>https://github.com/kantboot/kantboot-frame-java/dependencies/functional/functional-all</url>
@@ -7737,37 +7737,37 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>functional-icon</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>functional-file</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>functional-pay</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>functional-translate</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>functional-email</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>functional-chat</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

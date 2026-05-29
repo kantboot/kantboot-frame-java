@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.kantboot</groupId>
     <artifactId>util</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4-SNAPSHOT</version>
   </parent>
   <groupId>com.kantboot</groupId>
   <artifactId>util-base-control</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>util-base-control</name>
   <description>基础控制器模块，提供了基础的控制器功能和通用的请求处理逻辑。</description>
   <url>https://github.com/kantboot/kantboot-frame-java/dependencies/util/util-base-control</url>
@@ -7737,7 +7737,7 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-jpa</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -7755,31 +7755,31 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-rest</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-auth</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-i18n</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-exception</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-admin</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

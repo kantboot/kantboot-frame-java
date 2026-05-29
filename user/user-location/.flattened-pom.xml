@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.kantboot</groupId>
     <artifactId>user</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4-SNAPSHOT</version>
   </parent>
   <groupId>com.kantboot</groupId>
   <artifactId>user-location</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>user-location</name>
   <description>A modular Java backend framework based on Spring Boot 3</description>
   <url>https://github.com/kantboot/kantboot-frame-java/dependencies/user/user-location</url>
@@ -7743,7 +7743,7 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>user-account</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

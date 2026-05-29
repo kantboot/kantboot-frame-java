@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.kantboot</groupId>
     <artifactId>official-plugin</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4-SNAPSHOT</version>
   </parent>
   <groupId>com.kantboot</groupId>
   <artifactId>official-plugin-user-location</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>official-plugin-user-location</name>
   <description>A modular Java backend framework based on Spring Boot 3</description>
   <url>https://github.com/kantboot/kantboot-frame-java/official-plugin/official-plugin-user-location</url>
@@ -7656,19 +7656,19 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>tool-area</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>tool-ip</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>user-location</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

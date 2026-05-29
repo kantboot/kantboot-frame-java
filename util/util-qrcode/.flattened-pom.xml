@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.kantboot</groupId>
     <artifactId>util</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4-SNAPSHOT</version>
   </parent>
   <groupId>com.kantboot</groupId>
   <artifactId>util-qrcode</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>util-qrcode</name>
   <description>A modular Java backend framework based on Spring Boot 3</description>
   <url>https://github.com/kantboot/kantboot-frame-java/dependencies/util/util-qrcode</url>
@@ -7749,7 +7749,7 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-auth</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -7761,7 +7761,7 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-rest</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

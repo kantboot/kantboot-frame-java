@@ -5,12 +5,12 @@
   <parent>
     <groupId>com.kantboot</groupId>
     <artifactId>dependencies</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4-SNAPSHOT</version>
     <relativePath>../dependencies/pom.xml</relativePath>
   </parent>
   <groupId>com.kantboot</groupId>
   <artifactId>developer</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>developer</name>
   <description>A modular Java backend framework based on Spring Boot 3</description>
   <url>https://github.com/kantboot/kantboot-frame-java/dependencies/developer</url>
@@ -7738,7 +7738,7 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-all</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -7756,7 +7756,7 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>util-timer</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

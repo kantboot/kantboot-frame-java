@@ -19,6 +19,7 @@
         <module>official-plugin-user-location</module>
         <module>official-plugin-all</module>
         <module>official-plugin-functional-translate</module>
+        <module>official-plugin-functional-ai</module>
     </modules>
 
 </project>

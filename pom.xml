@@ -58,6 +58,7 @@
         <module>tool</module>
         <module>thirdparty</module>
         <module>official-plugin</module>
+        <module>ai</module>
         <module>developer</module>
         <module>starter-parent</module>
         <module>in-project</module>

@@ -295,6 +295,12 @@
 
             <dependency>
                 <groupId>com.kantboot</groupId>
+                <artifactId>official-plugin-ai</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kantboot</groupId>
                 <artifactId>official-plugin-all</artifactId>
                 <version>${revision}</version>
             </dependency>
@@ -350,6 +356,11 @@
             <dependency>
                 <groupId>com.kantboot</groupId>
                 <artifactId>engine-database</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kantboot</groupId>
+                <artifactId>engine-docker</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

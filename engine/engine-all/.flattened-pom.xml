@@ -146,6 +146,16 @@
         <version>3.4.3</version>
       </dependency>
       <dependency>
+        <groupId>com.github.docker-java</groupId>
+        <artifactId>docker-java-core</artifactId>
+        <version>3.4.2</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.docker-java</groupId>
+        <artifactId>docker-java-transport-httpclient5</artifactId>
+        <version>3.4.2</version>
+      </dependency>
+      <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-console</artifactId>
         <version>6.1.5</version>
@@ -7749,6 +7759,12 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>engine-computer</artifactId>
+      <version>0.0.4-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.kantboot</groupId>
+      <artifactId>engine-docker</artifactId>
       <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>

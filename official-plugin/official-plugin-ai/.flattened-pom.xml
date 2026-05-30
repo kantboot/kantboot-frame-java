@@ -8,11 +8,11 @@
     <version>0.0.4-SNAPSHOT</version>
   </parent>
   <groupId>com.kantboot</groupId>
-  <artifactId>official-plugin-functional-ai</artifactId>
+  <artifactId>official-plugin-ai</artifactId>
   <version>0.0.4-SNAPSHOT</version>
-  <name>official-plugin-functional-ai</name>
+  <name>official-plugin-ai</name>
   <description>A modular Java backend framework based on Spring Boot 3</description>
-  <url>https://github.com/kantboot/kantboot-frame-java/official-plugin/official-plugin-functional-ai</url>
+  <url>https://github.com/kantboot/kantboot-frame-java/official-plugin/official-plugin-ai</url>
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -28,9 +28,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:https://github.com/kantboot/kantboot-frame-java.git/official-plugin/official-plugin-functional-ai</connection>
-    <developerConnection>scm:git:https://github.com/kantboot/kantboot-frame-java.git/official-plugin/official-plugin-functional-ai</developerConnection>
-    <url>https://github.com/kantboot/kantboot-frame-java/official-plugin/official-plugin-functional-ai</url>
+    <connection>scm:git:https://github.com/kantboot/kantboot-frame-java.git/official-plugin/official-plugin-ai</connection>
+    <developerConnection>scm:git:https://github.com/kantboot/kantboot-frame-java.git/official-plugin/official-plugin-ai</developerConnection>
+    <url>https://github.com/kantboot/kantboot-frame-java/official-plugin/official-plugin-ai</url>
   </scm>
   <dependencyManagement>
     <dependencies>

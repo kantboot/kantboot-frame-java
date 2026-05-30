@@ -19,5 +19,10 @@
             <artifactId>ai-chat</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>ai-agent</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 </project>

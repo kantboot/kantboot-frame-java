@@ -36,7 +36,12 @@
         </dependency>
         <dependency>
             <groupId>com.kantboot</groupId>
-            <artifactId>official-plugin-functional-ai</artifactId>
+            <artifactId>official-plugin-ai</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>official-plugin-functional-agent</artifactId>
             <version>${revision}</version>
         </dependency>
     </dependencies>

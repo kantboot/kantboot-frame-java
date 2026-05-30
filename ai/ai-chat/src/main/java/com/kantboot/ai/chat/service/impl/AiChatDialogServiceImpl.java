@@ -72,11 +72,11 @@ public class AiChatDialogServiceImpl implements IAiChatDialogService {
                 ? httpRequestHeaderUtil.getLanguageCode()
                 : rawLanguageCode;
 
-        boolean supported = role.getLanguageSupports().stream()
-                .anyMatch(s -> s.getLanguageCode().equals(languageCode));
-        if (!supported) {
-            throw AiChatException.LANGUAGE_NOT_SUPPORTED;
-        }
+        // boolean supported = role.getLanguageSupports().stream()
+        //         .anyMatch(s -> s.getLanguageCode().equals(languageCode));
+        // if (!supported) {
+        //     throw AiChatException.LANGUAGE_NOT_SUPPORTED;
+        // }
 
         AiChatDialog dialog = new AiChatDialog()
                 .setRoleId(dto.getRoleId())

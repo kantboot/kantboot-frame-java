@@ -10,8 +10,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>official-plugin-functional-ai</artifactId>
-    <name>official-plugin-functional-ai</name>
+    <artifactId>official-plugin-ai</artifactId>
+    <name>official-plugin-ai</name>
 
     <dependencies>
         <dependency>

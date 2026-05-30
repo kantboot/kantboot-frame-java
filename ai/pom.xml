@@ -15,6 +15,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>ai-chat</module>
+        <module>ai-agent</module>
         <module>ai-all</module>
     </modules>
 </project>

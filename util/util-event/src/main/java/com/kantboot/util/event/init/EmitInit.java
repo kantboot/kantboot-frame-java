@@ -33,6 +33,7 @@ public class EmitInit implements ApplicationContextAware {
     public static final List<EventDTO> EVENT_LIST = new ArrayList<>();
     private static final Map<String, List<Method>> EVENT_MAP = new HashMap<>();
     private static final List<String> SCANNED_CLASSES = new ArrayList<>();
+    private static final Set<String> REGISTERED_METHOD_KEYS = new HashSet<>();
 
     private static ApplicationContext applicationContext;
 
@@ -45,6 +46,10 @@ public class EmitInit implements ApplicationContextAware {
     @PostConstruct
     @Priority(2)
     public void init() {
+        EVENT_LIST.clear();
+        EVENT_MAP.clear();
+        SCANNED_CLASSES.clear();
+        REGISTERED_METHOD_KEYS.clear();
         initEventMap();
         logScannedClasses();
         logEventMap();
@@ -106,6 +111,10 @@ public class EmitInit implements ApplicationContextAware {
                     String eventCode = annotation.code();
                     String eventName = annotation.name();
                     String eventDescription = annotation.description();
+                    String methodKey = buildMethodKey(method);
+                    if (!REGISTERED_METHOD_KEYS.add(methodKey)) {
+                        continue;
+                    }
 
                     List<ParamInEventDTO> params = new ArrayList<>();
 
@@ -127,7 +136,7 @@ public class EmitInit implements ApplicationContextAware {
                     }
 
 
-                    String methodWithParams = method.getClass().getName()+"."+method.getName()+ JSON.toJSONString(method.getParameterTypes());
+                    String methodWithParams = buildMethodWithParams(method);
 
                     EVENT_MAP.computeIfAbsent(eventCode, k -> new ArrayList<>()).add(method);
                     EVENT_LIST.add(new EventDTO()
@@ -147,14 +156,24 @@ public class EmitInit implements ApplicationContextAware {
         } catch (Exception e) {
             log.warn("Error scanning package {}: {}", packageToScan, e.getMessage());
         }
-        // EVENT_LIST去重
-        Set<EventDTO> uniqueEvents = new HashSet<>(EVENT_LIST);
-        EVENT_LIST.clear();
-        EVENT_LIST.addAll(uniqueEvents);
     }
 
     public static List<Method> getMethod(String code) {
         return EVENT_MAP.getOrDefault(code, new ArrayList<>());
+    }
+
+    private static String buildMethodKey(Method method) {
+        return method.getDeclaringClass().getName()
+                + "#"
+                + method.getName()
+                + JSON.toJSONString(method.getParameterTypes());
+    }
+
+    private static String buildMethodWithParams(Method method) {
+        return method.getDeclaringClass().getName()
+                + "."
+                + method.getName()
+                + JSON.toJSONString(method.getParameterTypes());
     }
 
 }

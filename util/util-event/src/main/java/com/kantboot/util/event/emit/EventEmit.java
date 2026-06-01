@@ -13,10 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
+import org.springframework.aop.support.AopUtils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
@@ -43,12 +45,16 @@ public class EventEmit implements ApplicationContextAware {
             return;
         }
 
+        Exception firstException = null;
         for (Method method : methods) {
-            Class<?> clazz = method.getDeclaringClass();
-            Object bean = applicationContext.getBean(clazz);
             method.setAccessible(true);
+            Object bean = resolveBean(method);
+            if (bean == null) {
+                log.warn("未找到事件监听 Bean: {}", method.getDeclaringClass().getName());
+                continue;
+            }
 
-            String methodWithParams = method.getClass().getName() + "." + method.getName() + JSON.toJSONString(method.getParameterTypes());
+            String methodWithParams = method.getDeclaringClass().getName() + "." + method.getName() + JSON.toJSONString(method.getParameterTypes());
 
             Date startTime = new Date();
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
@@ -63,7 +69,7 @@ public class EventEmit implements ApplicationContextAware {
                             utilEventSlot.onStart(new EventOnStartDTO()
                                     .setCode(code)
                                     .setUuid(uuid)
-                                    .setData(List.of(values))
+                                    .setData(copyValues(values))
                                     .setGmtOnStart(startTime)
                                     .setMethodWithParams(methodWithParams)
                             );
@@ -106,7 +112,10 @@ public class EventEmit implements ApplicationContextAware {
             } catch (Exception e) {
                 isExceptionEnd = true;
                 exception = e;
-                throw new RuntimeException(e);
+                if (firstException == null) {
+                    firstException = e;
+                }
+                log.error("事件监听执行失败: {}.{} - {}", method.getDeclaringClass().getName(), method.getName(), e.getMessage(), e);
             } finally {
                 Date endTime = new Date();
                 Boolean finalIsExceptionEnd = isExceptionEnd;
@@ -114,9 +123,13 @@ public class EventEmit implements ApplicationContextAware {
                 Thread.ofVirtual()
                         .name("event-on-end-" + code + "-" + uuid)
                         .start(() -> {
+                            long duration = endTime.getTime() - startTime.getTime();
                             utilEventSlot.onEnd(new EventOnEndDTO()
                                     .setIsExceptionEnd(finalIsExceptionEnd)
                                     .setException(finalException)
+                                    .setDuration(duration)
+                                    .setSuccess(!finalIsExceptionEnd)
+                                    .setExceptionMessage(finalException == null ? null : finalException.getMessage())
                                     .setCode(code)
                                     .setUuid(uuid)
                                     .setData(values)
@@ -124,8 +137,12 @@ public class EventEmit implements ApplicationContextAware {
                                     .setGmtOnEnd(endTime)
                                     .setLoggerItems(logger.getLoggerItems())
                             );
-                        });
+                });
             }
+        }
+
+        if (firstException != null) {
+            throw new RuntimeException(firstException);
         }
     }
 
@@ -143,7 +160,7 @@ public class EventEmit implements ApplicationContextAware {
                 } else {
                     log.warn("参数类型不匹配，期望: {}, 实际: {}",
                             parameterTypes[i].getName(),
-                            value[valueIndex].getClass().getName());
+                            value[valueIndex] == null ? "null" : value[valueIndex].getClass().getName());
                     params[i] = tryConvertType(value[valueIndex], parameterTypes[i]);
                 }
                 valueIndex++;
@@ -156,9 +173,37 @@ public class EventEmit implements ApplicationContextAware {
     }
 
     private Object tryConvertType(Object value, Class<?> targetType) {
+        if (value == null) {
+            return null;
+        }
         if (targetType == String.class) {
             return value.toString();
         }
         return value;
+    }
+
+    private Object resolveBean(Method method) {
+        Class<?> declaringClass = method.getDeclaringClass();
+        try {
+            return applicationContext.getBean(declaringClass);
+        } catch (Exception ignore) {
+            for (String beanName : applicationContext.getBeanNamesForType(Object.class)) {
+                Object bean = applicationContext.getBean(beanName);
+                Class<?> targetClass = AopUtils.getTargetClass(bean);
+                if (declaringClass.isAssignableFrom(targetClass) || targetClass.equals(declaringClass)) {
+                    return bean;
+                }
+            }
+        }
+        return null;
+    }
+
+    private List<Object> copyValues(Object... values) {
+        List<Object> result = new ArrayList<>();
+        if (values == null) {
+            return result;
+        }
+        result.addAll(Arrays.asList(values));
+        return result;
     }
 }

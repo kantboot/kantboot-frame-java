@@ -5,12 +5,12 @@
   <parent>
     <groupId>com.kantboot</groupId>
     <artifactId>dependencies</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4-SNAPSHOT</version>
     <relativePath>../dependencies/pom.xml</relativePath>
   </parent>
   <groupId>com.kantboot</groupId>
   <artifactId>starter-parent</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>starter-parent</name>
   <description>A modular Java backend framework based on Spring Boot 3</description>
@@ -39,372 +39,392 @@
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-admin</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-auth</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-base-control</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-cache</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-crypto</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-data-change</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-email</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-event</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-exception</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-file</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-http</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-i18n</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-init</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-jpa</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-location</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-log</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-qrcode</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-resolver</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-rest</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-scan</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-setting</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-timer</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>util-all</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>system-auth</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>system-dict</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>system-language</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>system-setting</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>system-all</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>user-account</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>user-balance</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>user-interrelation</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>user-location</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>user-online</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>user-all</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>functional-file</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>functional-chat</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>functional-email</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>functional-pay</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>functional-translate</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>functional-icon</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>functional-all</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>official-plugin-user-location</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>official-plugin-functional-translate</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>official-plugin-tool-ip</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>official-plugin-tool-area</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.kantboot</groupId>
+        <artifactId>official-plugin-ai</artifactId>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>official-plugin-all</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>fp-carousel</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>fp-comment</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>fp-community</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>fp-all</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>gateway-client</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>gateway-server</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>global-standalone</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>engine-computer</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>engine-database</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.kantboot</groupId>
+        <artifactId>engine-docker</artifactId>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>engine-jvm</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>engine-all</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>developer</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>tool-area</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>tool-ip</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>tool-all</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>thirdparty-alicloud-market</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>thirdparty-baidu-translate</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>thirdparty-discord</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>thirdparty-github</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>thirdparty-google</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>thirdparty-juhe</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>thirdparty-wechat</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>thirdparty-wechat-miniprogram</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>thirdparty-wechat-pay</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>thirdparty-all</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>in-project</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.kantboot</groupId>
+        <artifactId>ai-chat</artifactId>
+        <version>0.0.4-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.kantboot</groupId>
+        <artifactId>ai-all</artifactId>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>starter-standalone</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>com.kantboot</groupId>
         <artifactId>starter-standalone-minimize</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.projectlombok</groupId>
@@ -516,6 +536,16 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-cache</artifactId>
         <version>3.4.3</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.docker-java</groupId>
+        <artifactId>docker-java-core</artifactId>
+        <version>3.4.2</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.docker-java</groupId>
+        <artifactId>docker-java-transport-httpclient5</artifactId>
+        <version>3.4.2</version>
       </dependency>
       <dependency>
         <groupId>org.apache.activemq</groupId>

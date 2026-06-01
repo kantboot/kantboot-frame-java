@@ -16,18 +16,4 @@ import lombok.Setter;
 public class UserAccountAttrExtInUserModule
     extends UserAccountAttrExt {
 
-    @OneToOne(mappedBy = "userAccount")
-    private UserAccountOnline online;
-
-    @OneToOne(mappedBy = "userAccount")
-    private UserAccountOnlineShow onlineShow;
-
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "user_account_id")
-    private UserAccountLocation location;
-
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "user_account_id")
-    private UserAccountInterrelation interrelation;
-
 }

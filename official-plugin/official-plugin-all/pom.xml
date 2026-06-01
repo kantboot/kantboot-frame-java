@@ -34,6 +34,16 @@
             <artifactId>official-plugin-user-location</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>official-plugin-ai</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>official-plugin-functional-agent</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 
 </project>

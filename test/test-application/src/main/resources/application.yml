@@ -17,7 +17,7 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
-      password: woshifangziyuan1
+      password: 5584JwxJj7iH4AEd
       timeout: 30s
       database: 2
       lettuce:
@@ -38,7 +38,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://127.0.0.1:5432/kantboot
     username: postgres
-    password: woshifangziyuan1
+    password: 5584JwxJj7iH4AEd
   jpa:
     properties:
       hibernate:

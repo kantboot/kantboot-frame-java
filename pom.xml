@@ -64,7 +64,7 @@
     </modules>
 
     <properties>
-        <kantboot.version>0.0.3</kantboot.version>
+        <kantboot.version>0.0.4</kantboot.version>
         <revision>${kantboot.version}</revision>
 
         <java.version>21</java.version>

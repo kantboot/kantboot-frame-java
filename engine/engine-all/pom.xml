@@ -29,6 +29,11 @@
             <artifactId>engine-computer</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>com.kantboot</groupId>
+            <artifactId>engine-docker</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 
 </project>

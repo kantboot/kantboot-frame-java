@@ -5,12 +5,12 @@
   <parent>
     <groupId>com.kantboot</groupId>
     <artifactId>dependencies</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4-SNAPSHOT</version>
     <relativePath>../dependencies/pom.xml</relativePath>
   </parent>
   <groupId>com.kantboot</groupId>
   <artifactId>in-project</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>in-project</name>
   <description>A modular Java backend framework based on Spring Boot 3</description>
   <url>https://github.com/kantboot/kantboot-frame-java/dependencies/in-project</url>
@@ -145,6 +145,16 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-cache</artifactId>
         <version>3.4.3</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.docker-java</groupId>
+        <artifactId>docker-java-core</artifactId>
+        <version>3.4.2</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.docker-java</groupId>
+        <artifactId>docker-java-transport-httpclient5</artifactId>
+        <version>3.4.2</version>
       </dependency>
       <dependency>
         <groupId>org.apache.activemq</groupId>
@@ -7738,13 +7748,13 @@
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>user-account</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.kantboot</groupId>
       <artifactId>functional-email</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

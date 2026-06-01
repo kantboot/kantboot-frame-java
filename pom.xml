@@ -58,14 +58,13 @@
         <module>tool</module>
         <module>thirdparty</module>
         <module>official-plugin</module>
-        <module>ai</module>
         <module>developer</module>
         <module>starter-parent</module>
         <module>in-project</module>
     </modules>
 
     <properties>
-        <kantboot.version>0.0.4-SNAPSHOT</kantboot.version>
+        <kantboot.version>0.0.4</kantboot.version>
         <revision>${kantboot.version}</revision>
 
         <java.version>21</java.version>
